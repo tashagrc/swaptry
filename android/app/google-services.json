@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "756398379505",
+    "project_id": "swaptry-c875a",
+    "storage_bucket": "swaptry-c875a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756398379505:android:40b74fde24bf6fbe553450",
+        "android_client_info": {
+          "package_name": "com.example.swaptry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756398379505-1h3l3o1sl4ji3unbsgh0gg6m6pt2le22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5kya19-esWv_9souC1RQPELnRcuvgXGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756398379505-1h3l3o1sl4ji3unbsgh0gg6m6pt2le22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
