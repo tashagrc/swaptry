@@ -57,7 +57,23 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+  
   uses-material-design: true
+  fonts:
+    - family: Poppins
+      fonts:
+      - asset: assets/fonts/Poppins-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Poppins-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Poppins-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Poppins-Bold.ttf
+        weight: 700
+
+    - family: Carbonara_swaptry
+      fonts:
+        - asset: assets/icons/Carbonara_swaptry.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

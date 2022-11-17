@@ -1,21 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:swaptry/carbonara_swaptry_icons.dart';
+import 'page/home_page.dart';
+import 'page/history_page.dart';
+import 'page/profile_page.dart';
 
 void main() {
-  runApp(const HomePage());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MainPage());
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
+  int currentIndex = 0;
+  final screens = [
+    HomePage(),
+    HistoryPage(),
+    ProfilePage(),
+  ];
+
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(BuildContext context) => MaterialApp(
+    home: Scaffold(
+      body: IndexedStack(
+        index: currentIndex,
+        children: screens,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color(0xff6e80fe),
+        unselectedItemColor: Color(0xffababab),
+
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+        items: const[
+          BottomNavigationBarItem(
+            icon: Icon(Carbonara_swaptry.home),
+            label: 'Home',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Carbonara_swaptry.history),
+            label: 'History',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Carbonara_swaptry.user),
+            label: 'Profile',
+          ),
+        ],
+      ),
+  
+    ),
+  );
 }
 
 
