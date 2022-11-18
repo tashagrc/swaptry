@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Color(0xff6e80fe),
         unselectedItemColor: Color(0xffababab),
-
+        elevation: 10,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
         items: const[
