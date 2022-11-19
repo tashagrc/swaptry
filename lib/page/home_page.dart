@@ -11,20 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CollectionReference _referenceStationList = FirebaseFirestore.instance.collection('station-location');
-  late Stream<QuerySnapshot> _streamStationList;
-
-  @override
-  initState() {
-    super.initState();
-
-    _streamStationList = _referenceStationList.snapshots();
-  }
-
 
   @override
   Widget build(BuildContext context){
-
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference station_name = firestore.collection('station-name');
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Poppins'
@@ -185,35 +176,26 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      
-                      StationCard(Station(
-                          id: 1,
-                          image: 'assets/img/station1.png',
-                          name: 'Maju Jaya Station',
-                          address: 'Daan Mogot, Jakarta Barat',
-                          price: 11999,
-                          distance: 0.2,
-                        )
+                      StreamBuilder<QuerySnapshot>(
+                        stream: station_name.snapshots(),
+                        builder: (_,snapshot){
+                          if(snapshot.hasData){
+                            return Column(
+                              children: (snapshot.data! as QuerySnapshot).docs.map((e) =>
+                              StationCard(Station(
+                                  image: 'assets/img/station1.png',
+                                  name: e['stationName'],
+                                  address: e['address'],
+                                  price: e['price'],
+                                  distance: 0.2,
+                                ),
+                              ),).toList(),
+                            );
+                          }else{
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
                       ),
-                      StationCard(Station(
-                          id: 2,
-                          image: 'assets/img/station2.png',
-                          name: 'Maju Jaya Station',
-                          address: 'Daan Mogot, Jakarta Barat',
-                          price: 12399,
-                          distance: 0.2,
-                        )
-                      ),
-                      StationCard(Station(
-                          id: 3,
-                          image: 'assets/img/station3.png',
-                          name: 'Maju Jaya Station',
-                          address: 'Daan Mogot, Jakarta Barat',
-                          price: 14999,
-                          distance: 0.2,
-                        )
-                      ),
-                      // StationCard(),
                       
                     ],
                   ),

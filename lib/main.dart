@@ -5,7 +5,7 @@ import 'package:swaptry/firebase_options.dart';
 import 'page/home_page.dart';
 import 'page/history_page.dart';
 import 'page/profile_page.dart';
-import 'page/detail_screen.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
