@@ -6,6 +6,7 @@ import 'package:swaptry/page/detail_screen.dart';
 import 'package:swaptry/page/search_page1.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:swaptry/page/widgets/navigation.dart';
 import 'page/home_page.dart';
 import 'firebase_options.dart';
 import 'page/history_page.dart';
@@ -27,47 +28,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
-  final screens = [
-    const SearchPage1(),
-    const HomePage(),
-    const HistoryPage(),
-    const ProfilePage(),
-    // const DetailScreen(),
-  ];
+  
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    home: Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: screens,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xff6e80fe),
-        unselectedItemColor: const Color(0xffababab),
-        elevation: 10,
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
-        items: const[
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.home),
-            label: 'Home',
-          ),
-      
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.history),
-            label: 'History',
-          ),
-      
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.user),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    ),
-  );
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: Navigation(),
+    );
+  }
 }
 
 

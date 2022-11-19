@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:swaptry/models/station.dart';
+import 'package:swaptry/page/search_page2.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const LatLng _initialcameraposition = LatLng(-6.175835, 106.827158);
+
 
   @override
   Widget build(BuildContext context){
@@ -90,30 +96,40 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                margin: const EdgeInsets.only(left: 20),
-                                padding: const EdgeInsets.only(bottom: 8, top: 15),
+                                margin: const EdgeInsets.only(left: 20, bottom: 7, top: 13),
                                 child: const Text(
                                   'Station around you',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w600, 
-                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700, 
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 160,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child:  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => const SearchPage2())
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: const GoogleMap(
+                                        initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                               Container(
-                                height: 160,
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.symmetric(horizontal: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Center(
-                                  child: Text('GOOGLE MAPS'),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 20, top: 20),
+                                margin: const EdgeInsets.only(left: 20, top: 17),
                                 child: const Text(
                                   'Your Motorcycle Type',
                                   style: TextStyle(
@@ -182,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                             return Column(
                               children: (snapshot.data!).docs.map((e) =>
                               StationCard(Station(
-                                  image: 'assets/img/station1.png',
+                                  image: e['image'],
                                   name: e['stationName'],
                                   address: e['address'],
                                   price: e['price1'],
