@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context){
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference station_name = firestore.collection('station-name');
+    CollectionReference station_name = firestore.collection('station');
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Poppins'
@@ -100,17 +100,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: const Center(
-                                    child: Text('GOOGLE MAPS'),
-                                  ),
+                              Container(
+                                height: 160,
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Center(
+                                  child: Text('GOOGLE MAPS'),
                                 ),
                               ),
                               Container(
@@ -181,18 +180,18 @@ class _HomePageState extends State<HomePage> {
                         builder: (_,snapshot){
                           if(snapshot.hasData){
                             return Column(
-                              children: (snapshot.data! as QuerySnapshot).docs.map((e) =>
+                              children: (snapshot.data!).docs.map((e) =>
                               StationCard(Station(
                                   image: 'assets/img/station1.png',
                                   name: e['stationName'],
                                   address: e['address'],
-                                  price: e['price'],
+                                  price: e['price1'],
                                   distance: 0.2,
                                 ),
                               ),).toList(),
                             );
                           }else{
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           }
                         },
                       ),

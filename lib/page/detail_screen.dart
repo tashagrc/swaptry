@@ -15,20 +15,20 @@ class DetailScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                // bulet2 nav yg atas
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pop(context, true);
-                        },
-                        child: Image.asset('assets/btn_back.png', width: 40))
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20),
+              //   // bulet2 nav yg atas
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       InkWell(
+              //           onTap: () {
+              //             Navigator.pop(context, true);
+              //           },
+              //           child: 
+              //     ],
+              //   ),
+              // ),
               ListView(
                 children: [
                   SizedBox(height: 244),
@@ -41,62 +41,62 @@ class DetailScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 30,
-                            horizontal: 24,
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 8,
-                              ),
-                              // text header
-                              Text(
-                                'Jaksel Station',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      color: Colors.amber,
+                                      child: Text(
+                                        'Jaksel Station',
+                                        style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                'Tebet Barat, Jakarta Selatan',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    'Tebet Barat, Jakarta Selatan',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              // status yg ijo
-                              Image.asset(
-                                'asset/img/status.png',
-                                width: 60,
-                              ),
-                              Text(
-                                'Directions',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+
+                                Text(
+                                  'Directions',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '1.2 Km From you',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                                Text(
+                                  '1.2 Km From you',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              // batteries type
-                              Row(
-                                children: [],
-                              ),
-                            ],
+                                // batteries type
+                                Row(
+                                  children: [],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:swaptry/carbonara_swaptry_icons.dart';
 import 'package:swaptry/firebase_options.dart';
+import 'package:swaptry/page/detail_screen.dart';
+import 'package:swaptry/page/search_page1.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'page/home_page.dart';
+import 'firebase_options.dart';
 import 'page/history_page.dart';
 import 'page/profile_page.dart';
 
@@ -24,9 +29,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final screens = [
+    const SearchPage1(),
     const HomePage(),
     const HistoryPage(),
     const ProfilePage(),
+    // const DetailScreen(),
   ];
 
   @override
