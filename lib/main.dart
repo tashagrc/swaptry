@@ -5,6 +5,7 @@ import 'package:swaptry/firebase_options.dart';
 import 'page/home_page.dart';
 import 'page/history_page.dart';
 import 'page/profile_page.dart';
+import 'page/detail_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,30 +36,32 @@ class _MainPageState extends State<MainPage> {
         index: currentIndex,
         children: screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xff6e80fe),
-        unselectedItemColor: Color(0xffababab),
-        elevation: 10,
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
-        items: const[
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.home),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.history),
-            label: 'History',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Carbonara_swaptry.user),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: Container(
+        
+        child: BottomNavigationBar(
+          selectedItemColor: Color(0xff6e80fe),
+          unselectedItemColor: Color(0xffababab),
+          elevation: 10,
+          currentIndex: currentIndex,
+          onTap: (index) => setState(() => currentIndex = index),
+          items: const[
+            BottomNavigationBarItem(
+              icon: Icon(Carbonara_swaptry.home),
+              label: 'Home',
+            ),
+      
+            BottomNavigationBarItem(
+              icon: Icon(Carbonara_swaptry.history),
+              label: 'History',
+            ),
+      
+            BottomNavigationBarItem(
+              icon: Icon(Carbonara_swaptry.user),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
-  
     ),
   );
 }

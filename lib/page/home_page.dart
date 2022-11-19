@@ -25,15 +25,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context){
 
-    // _referenceStationList.get();
-    // _referenceStationList.snapshots();
-
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Poppins'
       ),
       home: Scaffold(
         extendBodyBehindAppBar: true,
+  
         appBar: AppBar(
           iconTheme: IconThemeData(
             color: Color(0xff565656),
@@ -75,139 +73,156 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        body: Stack(
-          children: [
-            Container(
-              height: 250,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset('assets/img/home_rectangle.png', fit: BoxFit.fill),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Container(
-                margin: EdgeInsets.only(top: 83),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.44,
-                      decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 8,
-                                  ),
-                                ],
-                              ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 20),
-                              padding: EdgeInsets.only(bottom: 8, top: 15),
-                              child: Text(
-                                'Station around you',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600, 
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Image.asset('assets/img/home_rectangle.png', fit: BoxFit.fill, width: MediaQuery.of(context).size.width),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Container(
+                  margin: EdgeInsets.only(top: 83),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.44,
+                        decoration: BoxDecoration(
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                    ),
+                                  ],
                                 ),
-                                child: Center(
-                                  child: Text('GOOGLE MAPS'),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 20),
+                                padding: EdgeInsets.only(bottom: 8, top: 15),
+                                child: Text(
+                                  'Station around you',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600, 
+                                    fontSize: 17,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 20, top: 20),
-                              child: Text(
-                                'Your Motorcycle Type',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                              Expanded(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.symmetric(horizontal: 20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Center(
+                                    child: Text('GOOGLE MAPS'),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              height: 90,
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 45,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Gesits',
-                                      style: TextStyle(
-                                        color: Color(0xff4a4a4a),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
+                              Container(
+                                margin: EdgeInsets.only(left: 20, top: 20),
+                                child: Text(
+                                  'Your Motorcycle Type',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 90,
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 45,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Gesits',
+                                        style: TextStyle(
+                                          color: Color(0xff4a4a4a),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.only(left: 20),
+                                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffF0F0F0),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
-                                    padding: EdgeInsets.only(left: 20),
-                                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffF0F0F0),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-            
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Text(
-                                      '*You can change this in your profile',
-                                      style: TextStyle(
-                                        color: Color(0xff9c9c9c),
-                                        fontSize: 10,
+              
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        '*You can change this in your profile',
+                                        style: TextStyle(
+                                          color: Color(0xff9c9c9c),
+                                          fontSize: 10,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                
                               ),
-                              
-                            ),
-                          ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Nearby',
-                        style: TextStyle( 
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff4a4a4a),
+                            ],
                         ),
                       ),
-                    ),
-                    StationCard(Station(
-                        id: 1,
-                        image: 'assets/img/station1.png',
-                        name: 'Maju Jaya Station',
-                        address: 'Daan Mogot, Jakarta Barat',
-                        price: 11999,
-                        distance: 0.2,
-                      )
-                    ),
-                    // StationCard(),
-                    
-                  ],
+                      Container(
+                        margin: EdgeInsets.only(top: 15),
+                        child: Text(
+                          'Nearby',
+                          style: TextStyle( 
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff4a4a4a),
+                          ),
+                        ),
+                      ),
+                      
+                      StationCard(Station(
+                          id: 1,
+                          image: 'assets/img/station1.png',
+                          name: 'Maju Jaya Station',
+                          address: 'Daan Mogot, Jakarta Barat',
+                          price: 11999,
+                          distance: 0.2,
+                        )
+                      ),
+                      StationCard(Station(
+                          id: 2,
+                          image: 'assets/img/station2.png',
+                          name: 'Maju Jaya Station',
+                          address: 'Daan Mogot, Jakarta Barat',
+                          price: 12399,
+                          distance: 0.2,
+                        )
+                      ),
+                      StationCard(Station(
+                          id: 3,
+                          image: 'assets/img/station3.png',
+                          name: 'Maju Jaya Station',
+                          address: 'Daan Mogot, Jakarta Barat',
+                          price: 14999,
+                          distance: 0.2,
+                        )
+                      ),
+                      // StationCard(),
+                      
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
