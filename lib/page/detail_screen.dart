@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'direction_page.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
@@ -8,13 +11,16 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+
+  static const LatLng _initialcameraposition = LatLng(-6.175835, 106.827158);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
             'Swap Station Details',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
           backgroundColor: Color(0xff6E80FE),
         ),
@@ -27,19 +33,19 @@ class _DetailScreenState extends State<DetailScreen> {
                 fit: BoxFit.cover,
               ),
 
-              Padding(
+              Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 15),
                       width: MediaQuery.of(context).size.width,
-                      color: Colors.amber,
                       child: Text(
                         'Jaksel Station',
                         style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff4A4A4A),
                         ),
                       ),
                     ),
@@ -48,32 +54,55 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: Text(
                         'Tebet Barat, Jakarta Selatan',
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          color: Color(0xff818181),
                         ),
                       ),
                     ),
-
-                    Text(
-                      'Directions',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                    SizedBox(height: 30),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Directions',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff4A4A4A),
+                        ),
                       ),
                     ),
-                    Text(
-                      '1.2 Km From you',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        '1.2 Km From you',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff818181),
+                        ),
                       ),
                     ),
-                    // batteries type
-                    Row(
-                      children: [],
+                    Container(
+                      height: 160,
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child:  InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => const DirectionPage())
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: const GoogleMap(
+                            initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
