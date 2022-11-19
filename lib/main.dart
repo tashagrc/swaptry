@@ -6,11 +6,12 @@ import 'page/home_page.dart';
 import 'page/history_page.dart';
 import 'page/profile_page.dart';
 
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(MainPage());
+  runApp(const MainPage());
 }
 
 class MainPage extends StatefulWidget {
@@ -23,9 +24,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final screens = [
-    HomePage(),
-    HistoryPage(),
-    ProfilePage(),
+    const HomePage(),
+    const HistoryPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -36,8 +37,8 @@ class _MainPageState extends State<MainPage> {
         children: screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xff6e80fe),
-        unselectedItemColor: Color(0xffababab),
+        selectedItemColor: const Color(0xff6e80fe),
+        unselectedItemColor: const Color(0xffababab),
         elevation: 10,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
@@ -46,19 +47,18 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Carbonara_swaptry.home),
             label: 'Home',
           ),
-
+      
           BottomNavigationBarItem(
             icon: Icon(Carbonara_swaptry.history),
             label: 'History',
           ),
-
+      
           BottomNavigationBarItem(
             icon: Icon(Carbonara_swaptry.user),
             label: 'Profile',
           ),
         ],
       ),
-  
     ),
   );
 }
