@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
 
@@ -15,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   CollectionReference _referenceStationList = FirebaseFirestore.instance.collection('station-location');
   late Stream<QuerySnapshot> _streamStationList;
 
+  @override
   initState() {
     super.initState();
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         extendBodyBehindAppBar: true,
   
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Color(0xff565656),
           ),
           toolbarHeight: 67,
@@ -47,26 +47,24 @@ class _HomePageState extends State<HomePage> {
               child:Container(
                 height: 40,
                 width: MediaQuery.of(context).size.width-40,
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
+
+                decoration: BoxDecoration(
+                  color: const Color(0xfff5f5f5),
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Row(
-                  children: <Widget>[
+                  children: const <Widget>[
                     Icon(Icons.search),
                     SizedBox(width: 10),
-                    Container(
-                      child: Text(
-                        'Search swap station', 
-                        style: TextStyle(
-                          color: Color(0xff565656),
-                          fontSize: 16,
-                        ),
+                    Text(
+                      'Search swap station', 
+                      style: TextStyle(
+                        color: Color(0xff565656),
+                        fontSize: 16,
                       ),
                     ),
                   ],
-                ),
-
-                decoration: BoxDecoration(
-                  color: Color(0xfff5f5f5),
-                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),
@@ -78,9 +76,9 @@ class _HomePageState extends State<HomePage> {
             children: [
               Image.asset('assets/img/home_rectangle.png', fit: BoxFit.fill, width: MediaQuery.of(context).size.width),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
-                  margin: EdgeInsets.only(top: 83),
+                  margin: const EdgeInsets.only(top: 83),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -101,9 +99,9 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(left: 20),
-                                padding: EdgeInsets.only(bottom: 8, top: 15),
-                                child: Text(
+                                margin: const EdgeInsets.only(left: 20),
+                                padding: const EdgeInsets.only(bottom: 8, top: 15),
+                                child: const Text(
                                   'Station around you',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600, 
@@ -114,19 +112,19 @@ class _HomePageState extends State<HomePage> {
                               Expanded(
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.symmetric(horizontal: 20),
+                                  margin: const EdgeInsets.symmetric(horizontal: 20),
                                   decoration: BoxDecoration(
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Text('GOOGLE MAPS'),
                                   ),
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(left: 20, top: 20),
-                                child: Text(
+                                margin: const EdgeInsets.only(left: 20, top: 20),
+                                child: const Text(
                                   'Your Motorcycle Type',
                                   style: TextStyle(
                                     fontSize: 16,
@@ -134,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 height: 90,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
@@ -142,7 +140,13 @@ class _HomePageState extends State<HomePage> {
                                     Container(
                                       height: 45,
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffF0F0F0),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Text(
                                         'Gesits',
                                         style: TextStyle(
                                           color: Color(0xff4a4a4a),
@@ -150,18 +154,12 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 15,
                                         ),
                                       ),
-                                      padding: EdgeInsets.only(left: 20),
-                                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffF0F0F0),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
                                     ),
               
                                     Container(
                                       alignment: Alignment.topLeft,
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Text(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: const Text(
                                         '*You can change this in your profile',
                                         style: TextStyle(
                                           color: Color(0xff9c9c9c),
@@ -177,8 +175,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 15),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 15),
+                        child: const Text(
                           'Nearby',
                           style: TextStyle( 
                             fontSize: 20,

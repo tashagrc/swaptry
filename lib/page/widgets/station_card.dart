@@ -5,18 +5,18 @@ import 'package:swaptry/page/detail_screen.dart';
 class StationCard extends StatelessWidget {
 
   final Station station;
-  StationCard(this.station);
+  const StationCard(this.station, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DetailScreen())
+          context, MaterialPageRoute(builder: (context) => const DetailScreen())
         );
       },
       child: Container( 
-        margin: EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         height: 105,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -34,7 +34,7 @@ class StationCard extends StatelessWidget {
               
               
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(     
               crossAxisAlignment: CrossAxisAlignment.start,    
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,8 +44,8 @@ class StationCard extends StatelessWidget {
                   children: [
                     
                     Text(
-                      '${station.name}',
-                      style: TextStyle(
+                      station.name,
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                         color: Color(0xff4a4a4a),
@@ -54,8 +54,8 @@ class StationCard extends StatelessWidget {
                     ),
     
                     Text(
-                      '${station.address}',
-                      style: TextStyle(
+                      station.address,
+                      style: const TextStyle(
                         fontSize: 10,
                         color: Color(0xff818181),
                       ),
@@ -67,7 +67,7 @@ class StationCard extends StatelessWidget {
                   children: [
                     Text(
                       '${station.distance} Km From You',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xff818181),
                         fontWeight: FontWeight.w500
@@ -75,7 +75,7 @@ class StationCard extends StatelessWidget {
                     ),
                     Text(
                       'Rp ${station.price}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
                         fontWeight: FontWeight.w500
