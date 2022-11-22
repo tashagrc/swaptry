@@ -20,7 +20,7 @@ class _DetailScreenState extends State<DetailScreen> {
         appBar: AppBar(
           title: Text(
             'Swap Station Details',
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w700),
           ),
           backgroundColor: Color(0xff6E80FE),
         ),
@@ -87,9 +87,6 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: 160,
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(right: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
                       child:  InkWell(
                         onTap: () {
                           Navigator.push(

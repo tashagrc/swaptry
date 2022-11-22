@@ -4,6 +4,7 @@ class Station{
   String address;
   int price;
   double distance;
+  bool isNearby;
 
   Station({
     required this.image,
@@ -11,5 +12,6 @@ class Station{
     required this.address,
     required this.price,
     required this.distance,
+    required this.isNearby
   });
 }
