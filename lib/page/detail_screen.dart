@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:swaptry/page/widgets/batteries_card.dart';
 
 import 'direction_page.dart';
 
@@ -18,11 +19,11 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Swap Station Details',
-            style: const TextStyle(fontWeight: FontWeight.w700),
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-          backgroundColor: Color(0xff6E80FE),
+          backgroundColor: const Color(0xff6E80FE),
         ),
         body: SafeArea(
           child: Column(
@@ -30,17 +31,19 @@ class _DetailScreenState extends State<DetailScreen> {
               Image.asset(
                 'assets/img/jakselstation.png',
                 width: MediaQuery.of(context).size.width,
+                height: 170,
                 fit: BoxFit.cover,
               ),
 
               Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 15),
+                      margin: const EdgeInsets.only(top: 15),
                       width: MediaQuery.of(context).size.width,
-                      child: Text(
+                      child: const Text(
                         'Jaksel Station',
                         style: TextStyle(
                           fontSize: 25,
@@ -49,9 +52,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text(
+                      child: const Text(
                         'Tebet Barat, Jakarta Selatan',
                         style: TextStyle(
                           fontSize: 14,
@@ -60,10 +63,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
-                    Container(
+                    const SizedBox(height: 30),
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text(
+                      child: const Text(
                         'Directions',
                         style: TextStyle(
                           fontSize: 17,
@@ -72,9 +75,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text(
+                      child: const Text(
                         '1.2 Km From you',
                         style: TextStyle(
                           fontSize: 16,
@@ -86,7 +89,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Container(
                       height: 160,
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(right: 20),
+                      margin: const EdgeInsets.only(right: 20),
                       child:  InkWell(
                         onTap: () {
                           Navigator.push(
@@ -96,11 +99,24 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: const GoogleMap(
+                            zoomControlsEnabled: false,
                             initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
                           ),
                         ),
                       ),
                     ),
+                    Container(
+                      // height: 20,
+                      padding: const EdgeInsets.only(top: 20),
+                      child: const Text(
+                        'Select Available Batteries Type',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    BatteriesCard(),
                   ],
                 ),
               ),
