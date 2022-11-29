@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:swaptry/models/station.dart';
 
@@ -23,58 +21,66 @@ class SearchPage1State extends State<SearchPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-        elevation: 0.8,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // tulisan city
-            Text(
-              'City',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            // search bar
-            TextField(
-              // tulisan input warna apa
-              style: TextStyle(color: Colors.black),
-              // box
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey,
-                // border
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
-                ),
-                // tulisan hint
-                hintText: 'Search Swap Station',
-                // icon
-                prefixIcon: Icon(Icons.search),
-                prefixIconColor: Colors.purple,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: display_list.length,
-                itemBuilder: (context, index) => ListTile(),
-              ),
-            ),
-          ],
+          elevation: 0,
+          title: const Text(
+            'Search Station',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+          backgroundColor: const Color(0xff6E80FE),
         ),
+      body: Column(
+        children: [
+          Stack(
+            children: 
+              [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 65,
+                  decoration: const BoxDecoration(
+                    color: Color(0xff6E80FE),
+                  ),
+                ),
+
+                Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width-40,
+                    height: 45,
+                    child: TextField(
+                      
+                      // tulisan input warna apa
+                      style: const TextStyle(color: Colors.black),
+                      
+                      // box
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        // border
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none
+                          ),
+                        ),
+                        // tulisan hint
+                        hintText: 'Search Swap Station',
+                        contentPadding: const EdgeInsets.all(0),
+                        // icon
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: display_list.length,
+              itemBuilder: (context, index) => ListTile(),
+            ),
+          ),
+        ],
       ),
     );
   }
