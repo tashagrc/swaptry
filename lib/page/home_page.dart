@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:swaptry/models/station.dart';
-import 'package:swaptry/page/detail_screen.dart';
 import 'package:swaptry/page/search_page1.dart';
 import 'package:swaptry/page/search_page2.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/is_nearby.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:swaptry/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,8 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context){
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference station_name = firestore.collection('station');
+    
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Poppins'
@@ -201,30 +198,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     StreamBuilder<QuerySnapshot>(
-                      stream: station_name.snapshots(),
+                      stream: stationName.snapshots(),
                       builder: (_,snapshot){
                         if(snapshot.hasData){
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context, MaterialPageRoute(builder: (_) => const DetailScreen()),
-                              );
-                            },
-                            child: Column(
-                              children: (snapshot.data!).docs.map((e) =>
-                                StationCard(Station(
-                                    image: e['image'],
-                                    name: e['stationName'],
-                                    address: e['address'],
-                                    price: e['price1'],
-                                    distance: getDistance(
-                                      e['location'].latitude, e['location'].longitude
-                                    ), 
-                                    isNearby: isNearby(getDistance(e['location'].latitude, e['location'].longitude)),
-                                  ),
+                          return Column(
+                            children: (snapshot.data!).docs.map((e) =>
+                              StationCard(Station(
+                                  image: e['image'],
+                                  name: e['stationName'],
+                                  address: e['address'],
+                                  price: e['price1'],
+                                  distance: getDistance(
+                                    e['location'].latitude, e['location'].longitude
+                                  ), 
+                                  isNearby: isNearby(getDistance(e['location'].latitude, e['location'].longitude)),
                                 ),
-                              ).where((isNearby) => true).toList(),
-                            ),
+                              ),
+                            ).where((isNearby) => true).toList(),
                           );
                         }else{
                           return const Center(child: CircularProgressIndicator());

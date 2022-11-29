@@ -3,24 +3,19 @@ import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/detail_screen.dart';
 import 'package:intl/intl.dart';
 
-class StationCard extends StatefulWidget {
+class StationCard extends StatelessWidget {
 
   final Station station;
   const StationCard(this.station, {super.key});
 
   @override
-  State<StationCard> createState() => _StationCardState();
-}
-
-class _StationCardState extends State<StationCard> {
-  @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () {
-      //   Navigator.push(
-      //     context, MaterialPageRoute(builder: (_) => const DetailScreen()),
-      //   );
-      // },
+      onTap: () {
+        Navigator.push(
+          context, MaterialPageRoute(builder: (_) => DetailScreen(station.image, station.name, station.address, station.price, station.distance, station.isNearby)),
+        );
+      },
       child: Container( 
         margin: const EdgeInsets.symmetric(vertical: 10),
         height: 105,
@@ -33,7 +28,7 @@ class _StationCardState extends State<StationCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: AssetImage(widget.station.image),
+                  image: AssetImage(station.image),
                   fit: BoxFit.cover,
                 ),
               ),   
@@ -48,7 +43,7 @@ class _StationCardState extends State<StationCard> {
                   children: [
                     
                     Text(
-                      widget.station.name,
+                      station.name,
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
@@ -58,7 +53,7 @@ class _StationCardState extends State<StationCard> {
                     ),
     
                     Text(
-                      widget.station.address,
+                      station.address,
                       style: const TextStyle(
                         fontSize: 10,
                         color: Color(0xff818181),
@@ -70,7 +65,7 @@ class _StationCardState extends State<StationCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${widget.station.distance} Km From You',
+                      '${station.distance} Km From You',
                       style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xff818181),
@@ -80,7 +75,7 @@ class _StationCardState extends State<StationCard> {
                     Text(
                       NumberFormat.currency(
                         locale: 'id', symbol: 'Rp ', decimalDigits: 0
-                      ).format(widget.station.price),
+                      ).format(station.price),
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
