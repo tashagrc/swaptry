@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           color: Color(0xff565656),
         ),
         toolbarHeight: 67,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xff6E80FE),
         elevation: 0,
         title: Center(
           child: InkWell(
