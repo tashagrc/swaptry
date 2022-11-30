@@ -75,36 +75,55 @@ class _DirectionPageState extends State<DirectionPage> {
         ),
       
       body: currentLocation == null 
-      ?const Center(child: Text("Loading"))
+      ?Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'Please Wait',
+              style: TextStyle(
+                fontSize: 30,
+                color: Color(0xff818181),
+                fontWeight: FontWeight.w600
+              ),
+            ),
+            CircularProgressIndicator(),
+          ],
+        ), 
+      )
       :Stack(
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: GoogleMap(
-              onMapCreated: (controller){
-                _googleMapController = controller;
-              },
-              compassEnabled: false,
-              myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              zoomControlsEnabled: false,
-              initialCameraPosition: CameraPosition(target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!), zoom: 14),
-              polylines: {
-                Polyline(
-                  polylineId: const PolylineId('route'),
-                  points: polylineCoordinates,
-                  color: const Color.fromARGB(255, 92, 108, 232),
-                  width: 6
+          Column(
+            children: [
+              Expanded(
+                child: GoogleMap(
+                  onMapCreated: (controller){
+                    _googleMapController = controller;
+                  },
+                  compassEnabled: false,
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
+                  zoomControlsEnabled: false,
+                  initialCameraPosition: CameraPosition(target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!), zoom: 14),
+                  polylines: {
+                    Polyline(
+                      polylineId: const PolylineId('route'),
+                      points: polylineCoordinates,
+                      color: const Color.fromARGB(255, 92, 108, 232),
+                      width: 6
+                    ),
+                  },
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('destination'),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+                      position: LatLng(_latitude, _longitude),
+                    )
+                  },
                 ),
-              },
-              markers: {
-                Marker(
-                  markerId: const MarkerId('destination'),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-                  position: LatLng(_latitude, _longitude),
-                )
-              },
-            ),
+              ),
+            ],
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -196,7 +215,4 @@ class _DirectionPageState extends State<DirectionPage> {
       distance = totDistance.toStringAsPrecision(4);
     });
   }
-  
-
- 
 }

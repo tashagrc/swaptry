@@ -6,7 +6,7 @@ class Station{
   double distance;
   double latitude;
   double longitude;
-  bool isNearby;
+  
 
   Station({
     required this.image,
@@ -16,6 +16,5 @@ class Station{
     required this.distance,
     required this.latitude,
     required this.longitude,
-    required this.isNearby
   });
 }

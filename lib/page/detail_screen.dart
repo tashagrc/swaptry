@@ -12,7 +12,7 @@ class DetailScreen extends StatefulWidget {
   double distance;
   double latitude;
   double longitude;
-  bool isNearby;
+
 
   DetailScreen(
     this.image,
@@ -22,7 +22,6 @@ class DetailScreen extends StatefulWidget {
     this.distance,
     this.latitude,
     this.longitude,
-    this.isNearby,
     {super.key}
   );
 
