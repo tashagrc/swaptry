@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
 import 'package:swaptry/page/search_page2.dart';
@@ -17,12 +18,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const LatLng _initialcameraposition = LatLng(-6.175835, 106.827158);
+  LatLng _initialcameraposition = LatLng(-6.175835, 106.827158);
 
+  GoogleMapController? _googleMapController;
+
+  @override
+  void dispose(){
+    _googleMapController?.dispose();
+    super.dispose();
+  }
+
+  LocationData? currentLocation;
+  Location location = Location();
+
+  @override
+  void initState(){
+    fetchLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context){
-    
+    _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
     return Scaffold(
       extendBodyBehindAppBar: true,  
       appBar: AppBar(
@@ -111,10 +128,18 @@ class _HomePageState extends State<HomePage> {
                                   margin: const EdgeInsets.symmetric(horizontal: 20),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
-                                    child: const GoogleMap(
+                                    child: GoogleMap(
+                                      myLocationButtonEnabled: false,
+                                      myLocationEnabled: true,
                                       zoomControlsEnabled: false,
                                       initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
+                                      onMapCreated: (controller){
+                                        _googleMapController = controller;
+                                      }
+
                                     ),
+                                    
+                                    
                                   ),
                                 ),
                                 InkWell(
@@ -163,18 +188,6 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-          
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: const Text(
-                                    '*You can change this in your profile',
-                                    style: TextStyle(
-                                      color: Color(0xff9c9c9c),
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                             
@@ -204,12 +217,12 @@ class _HomePageState extends State<HomePage> {
                                 name: e['stationName'],
                                 address: e['address'],
                                 price: e['price1'],
-                                distance: getDistance(
-                                  e['location'].latitude, e['location'].longitude
-                                ), 
+                                distance: double.parse((getDistance(
+                                 currentLocation!.latitude,currentLocation!.longitude ,e['location'].latitude, e['location'].longitude
+                                )).toStringAsFixed(2)), 
                                 latitude: e['latitude'],
                                 longitude: e['longitude'],
-                                isNearby: isNearby(getDistance(e['location'].latitude, e['location'].longitude)),
+                                isNearby: isNearby(getDistance(currentLocation!.latitude,currentLocation!.longitude ,e['location'].latitude, e['location'].longitude)),
                               ),
                             ),
                           ).where((isNearby) => true).toList(),
@@ -226,5 +239,33 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  fetchLocation() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    currentLocation = await location.getLocation();
+    location.onLocationChanged.listen((LocationData currentLocation) {
+      setState(() {
+        currentLocation = currentLocation;
+        _initialcameraposition = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+      });
+    });
   }
 }

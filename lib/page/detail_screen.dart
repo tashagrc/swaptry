@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:swaptry/page/search_page2.dart';
+import 'package:swaptry/page/direction_page.dart';
 
 // ignore: must_be_immutable
 class DetailScreen extends StatefulWidget {
@@ -52,15 +52,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Marker> markers = [
-      Marker(
-        markerId: MarkerId('dest'),
-        position: LatLng(_latitude,_longitude),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          BitmapDescriptor.hueRed,
-        ),
-      ),
-    ];
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -72,7 +63,8 @@ class _DetailScreenState extends State<DetailScreen> {
         body: SafeArea(
           child: Stack(
             children: 
-              [Image.asset(
+              [
+                Image.asset(
                 _image,
                 width: MediaQuery.of(context).size.width,
                 height: 190,
@@ -153,14 +145,22 @@ class _DetailScreenState extends State<DetailScreen> {
                                   child: GoogleMap(
                                     zoomControlsEnabled: false,
                                     initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
-                                    markers: markers.map((e) => e).toSet(),
+                                    markers: {
+                                      Marker(
+                                        markerId: const MarkerId('dest'),
+                                        position: LatLng(_latitude,_longitude),
+                                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                                          BitmapDescriptor.hueRed,
+                                        ),
+                                      ),
+                                    },
                                   ),
                                 ),
                               ),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) => const SearchPage2()),
+                                    context, MaterialPageRoute(builder: (_) => DirectionPage(_name, _address, _distance, _latitude, _longitude)),
                                   );
                                 },
                                 child: SizedBox(
