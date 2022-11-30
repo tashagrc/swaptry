@@ -76,8 +76,8 @@ class _DirectionPageState extends State<DirectionPage> {
       
       body: currentLocation == null 
       ?const Center(child: Text("Loading"))
-      :Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      :Stack(
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: GoogleMap(
@@ -108,35 +108,25 @@ class _DirectionPageState extends State<DirectionPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Stack(
-              
-              children: 
-              [
-                Container(
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20),
-                    ),
-                    color: Color(0xff6E80FE),
+            child: Container(
+              padding: const EdgeInsets.only(top: 11),
+              height: 80,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+                color: Color(0xff6E80FE),
+              ),
+              child: Text(
+                  'Total Distance\n$distance Km',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w600
                   ),
                 ),
-
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: Text(
-                      'Total Distance\n$distance Km',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                  ),
-                )
-              ],
             ),
           ),
         ],
