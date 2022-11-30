@@ -23,19 +23,17 @@ class DirectionPage extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<DirectionPage> createState() => _DirectionPageState(name, address, distance, latitude, longitude);
+  State<DirectionPage> createState() => _DirectionPageState(name, distance, latitude, longitude);
 }
 
 class _DirectionPageState extends State<DirectionPage> {
   final String _name;
-  final String _address;
   final double _distance;
   final double _latitude;
   final double _longitude;
 
   _DirectionPageState(
     this._name, 
-    this._address, 
     this._distance, 
     this._latitude, 
     this._longitude
@@ -92,7 +90,6 @@ class _DirectionPageState extends State<DirectionPage> {
         ), 
       )
       :Stack(
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             children: [
@@ -160,7 +157,7 @@ class _DirectionPageState extends State<DirectionPage> {
                         ),
                       ),
                       Text(
-                        '$_distance Km',
+                        '$distance Km',
                         style: const TextStyle(
                           height: 1.1,
                           color: Colors.white,
@@ -202,7 +199,6 @@ class _DirectionPageState extends State<DirectionPage> {
     currentLocation = await location.getLocation();
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
-        
         currentLocation = currentLocation;
         if(i == 1){
           getPolyPoints();
@@ -229,14 +225,17 @@ class _DirectionPageState extends State<DirectionPage> {
       }
     }
     double totDistance = 0;
-    for(var i = 0; i < polylineCoordinates.length-1; i++){
-      totDistance += getDistance(
-        polylineCoordinates[i].latitude, 
-        polylineCoordinates[i].longitude, 
-        polylineCoordinates[i+1].latitude, 
-        polylineCoordinates[i+1].longitude
-      );
+    if(polylineCoordinates.isNotEmpty){
+      for(var i = 0; i < polylineCoordinates.length-1; i++){
+        totDistance += getDistance(
+          polylineCoordinates[i].latitude, 
+          polylineCoordinates[i].longitude, 
+          polylineCoordinates[i+1].latitude, 
+          polylineCoordinates[i+1].longitude
+        );
+      }
     }
+    
     setState(() {
       distance = totDistance.toStringAsPrecision(4);
     });
