@@ -4,7 +4,6 @@ import '../../carbonara_swaptry_icons.dart';
 import '../history_page.dart';
 import '../home_page.dart';
 import '../profile_page.dart';
-import '../search_page1.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
