@@ -127,25 +127,51 @@ class _DirectionPageState extends State<DirectionPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: const EdgeInsets.only(top: 11),
-              height: 80,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-                color: Color(0xff6E80FE),
-              ),
-              child: Text(
-                  'Total Distance\n$distance Km',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w600
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  height: 85,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                    color: Color(0xff6E80FE),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        _name,
+                        style: const TextStyle(
+                          height: 1.2,
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600
+                          ),
+                      ),
+                      const Text(
+                        'Distance',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '$_distance Km',
+                        style: const TextStyle(
+                          height: 1.1,
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600
+                        ),
+                      )
+                    ],
                   ),
                 ),
+              ],
             ),
           ),
         ],
