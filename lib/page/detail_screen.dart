@@ -40,11 +40,27 @@ class _DetailScreenState extends State<DetailScreen> {
   final double _latitude;
   final double _longitude;
 
-  _DetailScreenState(this._image, this._name, this._address, this._price, this._distance, this._latitude, this._longitude);
-
+  _DetailScreenState(
+    this._image, 
+    this._name, 
+    this._address, 
+    this._price, 
+    this._distance, 
+    this._latitude, 
+    this._longitude
+  );
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> markers = [
+      Marker(
+        markerId: MarkerId('dest'),
+        position: LatLng(_latitude,_longitude),
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed,
+        ),
+      ),
+    ];
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -137,7 +153,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   child: GoogleMap(
                                     zoomControlsEnabled: false,
                                     initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
-
+                                    markers: markers.map((e) => e).toSet(),
                                   ),
                                 ),
                               ),
