@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:swaptry/page/direction_page.dart';
+import 'package:google_static_maps_controller/google_static_maps_controller.dart';
+
+
 
 // ignore: must_be_immutable
 class DetailScreen extends StatefulWidget {
@@ -135,27 +137,47 @@ class _DetailScreenState extends State<DetailScreen> {
                         Stack(
                           children: 
                             [
-                              Container(
+                              Container(  
                                 height: MediaQuery.of(context).size.height * 0.2,
                                 width: MediaQuery.of(context).size.width,
                                 margin: const EdgeInsets.only(top: 10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: GoogleMap(
-                                    zoomControlsEnabled: false,
-                                    initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
-                                    markers: {
+                                  child: StaticMap(
+                                    googleApiKey: 'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                    center: Location(_latitude, _longitude),
+                                    zoom: 14,
+                                    scaleToDevicePixelRatio: true,
+                                    markers: [
                                       Marker(
-                                        markerId: const MarkerId('dest'),
-                                        position: LatLng(_latitude,_longitude),
-                                        icon: BitmapDescriptor.defaultMarkerWithHue(
-                                          BitmapDescriptor.hueRed,
-                                        ),
+                                        color: const Color(0xff6E80FE),
+                                        locations: [GeocodedLocation.latLng(_latitude, _longitude)]
                                       ),
-                                    },
+                                    ],
                                   ),
                                 ),
                               ),
+                              // Container(
+                              //   height: MediaQuery.of(context).size.height * 0.2,
+                              //   width: MediaQuery.of(context).size.width,
+                              //   margin: const EdgeInsets.only(top: 10),
+                              //   child: ClipRRect(
+                              //     borderRadius: BorderRadius.circular(12),
+                              //     child: GoogleMap(
+                              //       zoomControlsEnabled: false,
+                              //       initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
+                              //       markers: {
+                              //         Marker(
+                              //           markerId: const MarkerId('dest'),
+                              //           position: LatLng(_latitude,_longitude),
+                              //           icon: BitmapDescriptor.defaultMarkerWithHue(
+                              //             BitmapDescriptor.hueRed,
+                              //           ),
+                              //         ),
+                              //       },
+                              //     ),
+                              //   ),
+                              // ),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(

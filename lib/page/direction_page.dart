@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 
+
 // ignore: must_be_immutable
 class DirectionPage extends StatefulWidget {
   String name;
@@ -97,6 +98,7 @@ class _DirectionPageState extends State<DirectionPage> {
                 child: GoogleMap(
                   onMapCreated: (controller){
                     _googleMapController = controller;
+                    
                   },
                   compassEnabled: false,
                   myLocationButtonEnabled: true,
@@ -200,7 +202,7 @@ class _DirectionPageState extends State<DirectionPage> {
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;
-        if(i == 1){
+        if(i <= 1){
           getPolyPoints();
         }
         i++;
@@ -225,7 +227,7 @@ class _DirectionPageState extends State<DirectionPage> {
       }
     }
     double totDistance = 0;
-    if(polylineCoordinates.isNotEmpty){
+    if(polylineCoordinates.isNotEmpty && polylineCoordinates.length >= 2){
       for(var i = 0; i < polylineCoordinates.length-1; i++){
         totDistance += getDistance(
           polylineCoordinates[i].latitude, 

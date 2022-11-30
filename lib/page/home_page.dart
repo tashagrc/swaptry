@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
 
   GoogleMapController? _googleMapController;
-
+  
   @override
   void dispose(){
     _googleMapController?.dispose();
@@ -131,6 +131,7 @@ class _HomePageState extends State<HomePage> {
                                     myLocationButtonEnabled: false,
                                     myLocationEnabled: true,
                                     zoomControlsEnabled: false,
+                                    buildingsEnabled: false,
                                     initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
                                     onMapCreated: (controller){
                                       _googleMapController = controller;
@@ -206,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                   StreamBuilder<QuerySnapshot>(
                     stream: stationName.snapshots(),
                     builder: (_,snapshot){
-                      if(snapshot.hasData){
+                      if(snapshot.hasData && currentLocation != null){
                         return Column(
                           children: (snapshot.data!).docs.map((e) =>
                             StationCard(Station(
@@ -215,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                 address: e['address'],
                                 price: e['price1'],
                                 distance: double.parse((getDistance(
-                                  currentLocation!.latitude,currentLocation!.longitude ,e['location'].latitude, e['location'].longitude
+                                  _initialcameraposition.latitude, _initialcameraposition.longitude ,e['location'].latitude, e['location'].longitude
                                 )).toStringAsFixed(2)), 
                                 latitude: e['latitude'],
                                 longitude: e['longitude'],
