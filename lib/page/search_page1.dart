@@ -36,7 +36,7 @@ class SearchPage1State extends State<SearchPage1> {
               [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 65,
+                  height: 55,
                   decoration: const BoxDecoration(
                     color: Color(0xff6E80FE),
                   ),
@@ -45,9 +45,8 @@ class SearchPage1State extends State<SearchPage1> {
                 Center(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width-40,
-                    height: 45,
-                    child: TextField(
-                      
+                    height: 40,
+                    child: TextField( 
                       // tulisan input warna apa
                       style: const TextStyle(color: Colors.black),
                       
@@ -57,7 +56,7 @@ class SearchPage1State extends State<SearchPage1> {
                         fillColor: Colors.white,
                         // border
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(16),
                           borderSide: const BorderSide(
                             width: 0,
                             style: BorderStyle.none

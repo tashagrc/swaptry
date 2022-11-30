@@ -13,7 +13,7 @@ class StationCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (_) => DetailScreen(station.image, station.name, station.address, station.price, station.distance, station.isNearby)),
+          context, MaterialPageRoute(builder: (_) => DetailScreen(station.image, station.name, station.address, station.price, station.distance, station.latitude, station.longitude, station.isNearby)),
         );
       },
       child: Container( 

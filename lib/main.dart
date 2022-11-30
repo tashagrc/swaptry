@@ -27,8 +27,11 @@ class _MainPageState extends State<MainPage> {
   
   Widget build(BuildContext context){
     
-    return const MaterialApp(
-      home: Navigation(),
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
+      home: const Navigation(),
     );
   }
 }

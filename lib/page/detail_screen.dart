@@ -10,6 +10,8 @@ class DetailScreen extends StatefulWidget {
   String address;
   int price;
   double distance;
+  double latitude;
+  double longitude;
   bool isNearby;
 
   DetailScreen(
@@ -18,13 +20,15 @@ class DetailScreen extends StatefulWidget {
     this.address,
     this.price,
     this.distance,
+    this.latitude,
+    this.longitude,
     this.isNearby,
     {super.key}
   );
 
   @override
   // ignore: no_logic_in_create_state
-  State<DetailScreen> createState() => _DetailScreenState(image, name, address, price, distance);
+  State<DetailScreen> createState() => _DetailScreenState(image, name, address, price, distance, latitude, longitude);
 }
 
 class _DetailScreenState extends State<DetailScreen> {
@@ -33,10 +37,11 @@ class _DetailScreenState extends State<DetailScreen> {
   final String _address;
   final int _price;
   final double _distance;
+  final double _latitude;
+  final double _longitude;
 
-  _DetailScreenState(this._image, this._name, this._address, this._price, this._distance);
+  _DetailScreenState(this._image, this._name, this._address, this._price, this._distance, this._latitude, this._longitude);
 
-  static const LatLng _initialcameraposition = LatLng(-6.175835, 106.827158);
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +134,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                 margin: const EdgeInsets.only(top: 10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: const GoogleMap(
+                                  child: GoogleMap(
                                     zoomControlsEnabled: false,
-                                    initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
+                                    initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
+
                                   ),
                                 ),
                               ),
@@ -175,7 +181,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(top: 7),
+                              margin: const EdgeInsets.only(top: 5.5),
                               padding: const EdgeInsets.only(left: 10),
                               child: const Text(
                                 'Gesits Battery',

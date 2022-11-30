@@ -4,6 +4,8 @@ class Station{
   String address;
   int price;
   double distance;
+  double latitude;
+  double longitude;
   bool isNearby;
 
   Station({
@@ -12,6 +14,8 @@ class Station{
     required this.address,
     required this.price,
     required this.distance,
+    required this.latitude,
+    required this.longitude,
     required this.isNearby
   });
 }
