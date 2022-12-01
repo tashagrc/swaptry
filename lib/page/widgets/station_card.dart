@@ -45,7 +45,7 @@ class StationCard extends StatelessWidget {
                     Text(
                       station.name,
                       style: const TextStyle(
-                        fontSize: 17,
+                        fontSize: 19,
                         fontWeight: FontWeight.w500,
                         color: Color(0xff4a4a4a),
                         
@@ -55,7 +55,7 @@ class StationCard extends StatelessWidget {
                     Text(
                       station.address,
                       style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 13,
                         color: Color(0xff818181),
                       ),
                     ),
@@ -67,7 +67,7 @@ class StationCard extends StatelessWidget {
                     Text(
                       '${station.distance} Km From You',
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 13,
                         color: Color(0xff818181),
                         fontWeight: FontWeight.w500
                       ),

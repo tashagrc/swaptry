@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
-import 'package:swaptry/page/search_page2.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart'
@@ -141,6 +140,7 @@ class _HomePageState extends State<HomePage> {
                                   scaleToDevicePixelRatio: true,
                                   markers: [
                                     stat.Marker(
+                                        size: stat.MarkerSize.mid,
                                         color: const Color(0xff6E80FE),
                                         locations: [
                                           stat.GeocodedLocation.latLng(
@@ -157,12 +157,11 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => const SearchPage2()),
+                                        builder: (_) => const SearchPage1()),
                                   );
                                 },
                                 child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
+                                  height:MediaQuery.of(context).size.height * 0.2,
                                   width: MediaQuery.of(context).size.width,
                                 ),
                               ),
@@ -184,12 +183,10 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             children: [
                               Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.063,
+                                height:MediaQuery.of(context).size.height * 0.063,
                                 alignment: Alignment.centerLeft,
                                 padding: const EdgeInsets.only(left: 20),
-                                margin: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 2, top: 10),
+                                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
                                 decoration: BoxDecoration(
                                   color: const Color(0xffF0F0F0),
                                   borderRadius: BorderRadius.circular(12),
@@ -276,11 +273,11 @@ class _HomePageState extends State<HomePage> {
     }
 
     currentLocation = await location.getLocation();
-    // location.onLocationChanged.listen((LocationData currentLocation) {
+    location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;
-        _initialcameraposition = LatLng(currentLocation!.latitude!, currentLocation!.longitude!);
+        _initialcameraposition = LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude);
       });
-    // });
+    });
   }
 }
