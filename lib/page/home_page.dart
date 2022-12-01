@@ -18,10 +18,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
 
+  LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
   GoogleMapController? _googleMapController;
   
+
   @override
   void dispose(){
     _googleMapController?.dispose();
@@ -143,24 +144,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              // Container(
-                              //   height: MediaQuery.of(context).size.height * 0.2,
-                              //   width: MediaQuery.of(context).size.width,
-                              //   margin: const EdgeInsets.symmetric(horizontal: 20),
-                              //   child: ClipRRect(
-                              //     borderRadius: BorderRadius.circular(12),
-                              //     child: GoogleMap(
-                              //       myLocationButtonEnabled: false,
-                              //       myLocationEnabled: true,
-                              //       zoomControlsEnabled: false,
-                              //       buildingsEnabled: false,
-                              //       initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
-                              //       onMapCreated: (controller){
-                              //         _googleMapController = controller;
-                              //       }
-                              //     ),
-                              //   ),
-                              // ),
 
                               InkWell(
                                 onTap: () {
@@ -242,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                                 )).toStringAsFixed(2)), 
                                 latitude: e['latitude'],
                                 longitude: e['longitude'],
-                                currLoc: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+                                currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
                               ),
                             ),
                           ).toList(),
@@ -281,11 +264,11 @@ class _HomePageState extends State<HomePage> {
     }
 
     currentLocation = await location.getLocation();
-    // location.onLocationChanged.listen((LocationData currentLocation) {
+    location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;
         _initialcameraposition = LatLng(currentLocation!.latitude!, currentLocation!.longitude!);
       });
-    // });
+    });
   }
 }
