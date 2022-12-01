@@ -21,8 +21,6 @@ class DirectionPage extends StatefulWidget {
     {super.key}
   );
 
-
-
   @override
   // ignore: no_logic_in_create_state
   State<DirectionPage> createState() => _DirectionPageState(name, latitude, longitude, currLoc);
@@ -40,26 +38,24 @@ class _DirectionPageState extends State<DirectionPage> {
     this._longitude,
     this._currLoc
   );
-  GoogleMapController? _googleMapController;
 
+  GoogleMapController? _googleMapController;
   List<LatLng> polylineCoordinates = [];
+  String distance = '0';
+
   @override
   void dispose(){
     _googleMapController?.dispose();
     polylineCoordinates.clear();
     super.dispose();
   }
-  
-  
 
   @override
   void initState(){ 
     getPolyPoints();
     super.initState();
   }
-  
 
-  String distance = '0';
   @override
   Widget build(BuildContext context) {
     
@@ -80,7 +76,6 @@ class _DirectionPageState extends State<DirectionPage> {
                 child: GoogleMap(
                   onMapCreated: (controller){
                     _googleMapController = controller;
-                    
                   },
                   compassEnabled: false,
                   myLocationButtonEnabled: true,
@@ -189,8 +184,6 @@ class _DirectionPageState extends State<DirectionPage> {
           polylineCoordinates[i+1].longitude
         );
       }
-    }else{
-      print(result.errorMessage);
     }
     
     setState(() {
