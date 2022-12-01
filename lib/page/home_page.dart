@@ -146,45 +146,28 @@ class _HomePageState extends State<HomePage> {
                                           stat.GeocodedLocation.latLng(
                                               _initialcameraposition.latitude,
                                               _initialcameraposition.longitude)
-                                        ]),
-                                  ],
+                                        ]
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              // Container(
-                              //   height: MediaQuery.of(context).size.height * 0.2,
-                              //   width: MediaQuery.of(context).size.width,
-                              //   margin: const EdgeInsets.symmetric(horizontal: 20),
-                              //   child: ClipRRect(
-                              //     borderRadius: BorderRadius.circular(12),
-                              //     child: GoogleMap(
-                              //       myLocationButtonEnabled: false,
-                              //       myLocationEnabled: true,
-                              //       zoomControlsEnabled: false,
-                              //       buildingsEnabled: false,
-                              //       initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
-                              //       onMapCreated: (controller){
-                              //         _googleMapController = controller;
-                              //       }
-                              //     ),
-                              //   ),
-                              // ),
-
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => const SearchPage2()),
-                                );
-                              },
-                              child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2,
-                                width: MediaQuery.of(context).size.width,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const SearchPage2()),
+                                  );
+                                },
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  width: MediaQuery.of(context).size.width,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                         Container(
                           margin: const EdgeInsets.only(left: 20, top: 17),
                           child: const Text(
