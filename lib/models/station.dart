@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class Station{
   String image;
   String name;
@@ -6,6 +8,7 @@ class Station{
   double distance;
   double latitude;
   double longitude;
+  LatLng currLoc;
   
 
   Station({
@@ -16,5 +19,6 @@ class Station{
     required this.distance,
     required this.latitude,
     required this.longitude,
+    required this.currLoc,
   });
 }

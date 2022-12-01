@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:swaptry/page/direction_page.dart';
-import 'package:google_static_maps_controller/google_static_maps_controller.dart';
-
-
+import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 
 // ignore: must_be_immutable
 class DetailScreen extends StatefulWidget {
@@ -14,6 +13,7 @@ class DetailScreen extends StatefulWidget {
   double distance;
   double latitude;
   double longitude;
+  LatLng currLoc;
 
 
   DetailScreen(
@@ -24,12 +24,13 @@ class DetailScreen extends StatefulWidget {
     this.distance,
     this.latitude,
     this.longitude,
+    this.currLoc,
     {super.key}
   );
 
   @override
   // ignore: no_logic_in_create_state
-  State<DetailScreen> createState() => _DetailScreenState(image, name, address, price, distance, latitude, longitude);
+  State<DetailScreen> createState() => _DetailScreenState(image, name, address, price, latitude, longitude, currLoc, distance);
 }
 
 class _DetailScreenState extends State<DetailScreen> {
@@ -37,20 +38,24 @@ class _DetailScreenState extends State<DetailScreen> {
   final String _name;
   final String _address;
   final int _price;
-  final double _distance;
   final double _latitude;
   final double _longitude;
+  final LatLng _currLoc;
+  final double _distance;
 
   _DetailScreenState(
     this._image, 
     this._name, 
     this._address, 
     this._price, 
-    this._distance, 
     this._latitude, 
-    this._longitude
+    this._longitude,
+    this._currLoc,
+    this._distance,
   );
 
+
+  String distance = '0';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,45 +148,24 @@ class _DetailScreenState extends State<DetailScreen> {
                                 margin: const EdgeInsets.only(top: 10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: StaticMap(
+                                  child: stat.StaticMap(
                                     googleApiKey: 'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                                    center: Location(_latitude, _longitude),
+                                    center: stat.Location(_latitude, _longitude),
                                     zoom: 14,
                                     scaleToDevicePixelRatio: true,
                                     markers: [
-                                      Marker(
+                                      stat.Marker(
                                         color: const Color(0xff6E80FE),
-                                        locations: [GeocodedLocation.latLng(_latitude, _longitude)]
+                                        locations: [stat.GeocodedLocation.latLng(_latitude, _longitude)]
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              // Container(
-                              //   height: MediaQuery.of(context).size.height * 0.2,
-                              //   width: MediaQuery.of(context).size.width,
-                              //   margin: const EdgeInsets.only(top: 10),
-                              //   child: ClipRRect(
-                              //     borderRadius: BorderRadius.circular(12),
-                              //     child: GoogleMap(
-                              //       zoomControlsEnabled: false,
-                              //       initialCameraPosition: CameraPosition(target: LatLng(_latitude, _longitude), zoom: 14.5),
-                              //       markers: {
-                              //         Marker(
-                              //           markerId: const MarkerId('dest'),
-                              //           position: LatLng(_latitude,_longitude),
-                              //           icon: BitmapDescriptor.defaultMarkerWithHue(
-                              //             BitmapDescriptor.hueRed,
-                              //           ),
-                              //         ),
-                              //       },
-                              //     ),
-                              //   ),
-                              // ),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) => DirectionPage(_name, _address, _distance, _latitude, _longitude)),
+                                    context, MaterialPageRoute(builder: (_) => DirectionPage(_name, _address, _latitude, _longitude, _currLoc)),
                                   );
                                 },
                                 child: SizedBox(

@@ -7,6 +7,7 @@ import 'package:swaptry/page/search_page1.dart';
 import 'package:swaptry/page/search_page2.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
+import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 import 'package:swaptry/main.dart';
 
 class HomePage extends StatefulWidget {
@@ -121,24 +122,44 @@ class _HomePageState extends State<HomePage> {
                           Stack(
                             children: 
                             [
-                              Container(
+                              Container(  
                                 height: MediaQuery.of(context).size.height * 0.2,
                                 width: MediaQuery.of(context).size.width,
                                 margin: const EdgeInsets.symmetric(horizontal: 20),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: GoogleMap(
-                                    myLocationButtonEnabled: false,
-                                    myLocationEnabled: true,
-                                    zoomControlsEnabled: false,
-                                    buildingsEnabled: false,
-                                    initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
-                                    onMapCreated: (controller){
-                                      _googleMapController = controller;
-                                    }
+                                  child: stat.StaticMap(
+                                    googleApiKey: 'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                    center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude),
+                                    zoom: 14,
+                                    scaleToDevicePixelRatio: true,
+                                    markers: [
+                                      stat.Marker(
+                                        color: const Color(0xff6E80FE),
+                                        locations: [stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude)]
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
+                              // Container(
+                              //   height: MediaQuery.of(context).size.height * 0.2,
+                              //   width: MediaQuery.of(context).size.width,
+                              //   margin: const EdgeInsets.symmetric(horizontal: 20),
+                              //   child: ClipRRect(
+                              //     borderRadius: BorderRadius.circular(12),
+                              //     child: GoogleMap(
+                              //       myLocationButtonEnabled: false,
+                              //       myLocationEnabled: true,
+                              //       zoomControlsEnabled: false,
+                              //       buildingsEnabled: false,
+                              //       initialCameraPosition: CameraPosition(target: _initialcameraposition, zoom: 14.5),
+                              //       onMapCreated: (controller){
+                              //         _googleMapController = controller;
+                              //       }
+                              //     ),
+                              //   ),
+                              // ),
 
                               InkWell(
                                 onTap: () {
@@ -220,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                                 )).toStringAsFixed(2)), 
                                 latitude: e['latitude'],
                                 longitude: e['longitude'],
+                                currLoc: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
                               ),
                             ),
                           ).toList(),

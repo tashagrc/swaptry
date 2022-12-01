@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 
 
@@ -9,57 +8,57 @@ import 'package:swaptry/page/widgets/get_distance.dart';
 class DirectionPage extends StatefulWidget {
   String name;
   String address;
-  double distance;
   double latitude;
   double longitude;
+  LatLng currLoc;
 
   DirectionPage(
     this.name,
     this.address,
-    this.distance,
     this.latitude,
     this.longitude,
+    this.currLoc,
     {super.key}
   );
 
+
+
   @override
   // ignore: no_logic_in_create_state
-  State<DirectionPage> createState() => _DirectionPageState(name, distance, latitude, longitude);
+  State<DirectionPage> createState() => _DirectionPageState(name, latitude, longitude, currLoc);
 }
 
 class _DirectionPageState extends State<DirectionPage> {
   final String _name;
-  final double _distance;
   final double _latitude;
   final double _longitude;
+  final LatLng _currLoc;
 
   _DirectionPageState(
     this._name, 
-    this._distance, 
     this._latitude, 
-    this._longitude
+    this._longitude,
+    this._currLoc
   );
   GoogleMapController? _googleMapController;
 
+  List<LatLng> polylineCoordinates = [];
   @override
   void dispose(){
     _googleMapController?.dispose();
+    polylineCoordinates.clear();
     super.dispose();
   }
   
-  int i = 1;
-  List<LatLng> polylineCoordinates = [];
-  LocationData? currentLocation;
-  Location location = Location();
   
 
   @override
-  void initState(){
-    fetchLocation();
-    
+  void initState(){ 
+    getPolyPoints();
     super.initState();
   }
   
+
   String distance = '0';
   @override
   Widget build(BuildContext context) {
@@ -73,24 +72,7 @@ class _DirectionPageState extends State<DirectionPage> {
           backgroundColor: const Color(0xff6E80FE),
         ),
       
-      body: currentLocation == null 
-      ?Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'Please Wait',
-              style: TextStyle(
-                fontSize: 30,
-                color: Color(0xff818181),
-                fontWeight: FontWeight.w600
-              ),
-            ),
-            CircularProgressIndicator(),
-          ],
-        ), 
-      )
-      :Stack(
+      body:Stack(
         children: [
           Column(
             children: [
@@ -104,7 +86,7 @@ class _DirectionPageState extends State<DirectionPage> {
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
                   zoomControlsEnabled: false,
-                  initialCameraPosition: CameraPosition(target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!), zoom: 14),
+                  initialCameraPosition: CameraPosition(target: LatLng(_currLoc.latitude, _currLoc.longitude), zoom: 14),
                   polylines: {
                     Polyline(
                       polylineId: const PolylineId('route'),
@@ -178,44 +160,12 @@ class _DirectionPageState extends State<DirectionPage> {
     );
   }
 
-  fetchLocation() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    currentLocation = await location.getLocation();
-    location.onLocationChanged.listen((LocationData currentLocation) {
-      setState(() {
-        currentLocation = currentLocation;
-        if(i <= 1){
-          getPolyPoints();
-        }
-        i++;
-      });
-    });
-  }
-
   void getPolyPoints() async{
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8', 
-      PointLatLng(currentLocation!.latitude!, currentLocation!.longitude!), 
+      PointLatLng(_currLoc.latitude, _currLoc.longitude), 
       PointLatLng(_latitude, _longitude),
     );
 
@@ -225,9 +175,12 @@ class _DirectionPageState extends State<DirectionPage> {
           LatLng(point.latitude, point.longitude),
         );
       }
+    }else{
+      print(result.errorMessage);
     }
+
     double totDistance = 0;
-    if(polylineCoordinates.isNotEmpty && polylineCoordinates.length >= 2){
+    if(polylineCoordinates.isNotEmpty){
       for(var i = 0; i < polylineCoordinates.length-1; i++){
         totDistance += getDistance(
           polylineCoordinates[i].latitude, 
@@ -236,6 +189,8 @@ class _DirectionPageState extends State<DirectionPage> {
           polylineCoordinates[i+1].longitude
         );
       }
+    }else{
+      print(result.errorMessage);
     }
     
     setState(() {

@@ -7,7 +7,6 @@ import 'package:swaptry/page/widgets/navigation.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference stationName = firestore.collection('station');
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
