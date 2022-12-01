@@ -22,10 +22,11 @@ class DetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                        onTap: () {
-                          Navigator.pop(context, true);
-                        },
-                        child: Image.asset('assets/btn_back.png', width: 40))
+                      onTap: () {
+                        Navigator.pop(context, true);
+                      },
+                      // child: Image.asset('assets/btn_back.png', width: 40)
+                    ),
                   ],
                 ),
               ),
