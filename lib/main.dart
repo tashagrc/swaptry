@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:swaptry/firebase_options.dart';
 import 'package:swaptry/splash_screen.dart';
 
-
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference stationName = firestore.collection('station');
 
@@ -24,8 +23,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  
   @override
   Widget build(BuildContext context){
+    
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Poppins',
@@ -34,5 +35,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-
