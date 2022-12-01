@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDoZCEF8m8AfUyfY8J0_EOxj_7ux-S1f3I',
-    appId: '1:756398379505:web:ef781db8be8c8f3a553450',
-    messagingSenderId: '756398379505',
-    projectId: 'swaptry-c875a',
-    authDomain: 'swaptry-c875a.firebaseapp.com',
-    storageBucket: 'swaptry-c875a.appspot.com',
+    apiKey: 'AIzaSyBYPYppgSyxXGnpKvw3Bl60Eh_Pp1hgu_A',
+    appId: '1:509935924102:web:8b4803faf49e82573eb207',
+    messagingSenderId: '509935924102',
+    projectId: 'swaptry2',
+    authDomain: 'swaptry2.firebaseapp.com',
+    storageBucket: 'swaptry2.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD5kya19-esWv_9souC1RQPELnRcuvgXGc',
-    appId: '1:756398379505:android:40b74fde24bf6fbe553450',
-    messagingSenderId: '756398379505',
-    projectId: 'swaptry-c875a',
-    storageBucket: 'swaptry-c875a.appspot.com',
+    apiKey: 'AIzaSyDPHjNV5ffhs4xg6GkTr1EKYOiZLMbKKrM',
+    appId: '1:509935924102:android:0c90ab4a76788bf93eb207',
+    messagingSenderId: '509935924102',
+    projectId: 'swaptry2',
+    storageBucket: 'swaptry2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyASI2gZS3mP1hz1JYwCaRJ4Kuwi_UaaNhQ',
-    appId: '1:756398379505:ios:01b8bd335feb451b553450',
-    messagingSenderId: '756398379505',
-    projectId: 'swaptry-c875a',
-    storageBucket: 'swaptry-c875a.appspot.com',
-    iosClientId: '756398379505-v2f1ssdh9lkonng0ts4h0rofnkl9bciq.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD95IFsMOcjEvU2Dnb8lqHitenhT_AStnY',
+    appId: '1:509935924102:ios:44c62206c81d84373eb207',
+    messagingSenderId: '509935924102',
+    projectId: 'swaptry2',
+    storageBucket: 'swaptry2.appspot.com',
+    iosClientId: '509935924102-s74jqu5u94241udpiftvkkjupsn0vahk.apps.googleusercontent.com',
     iosBundleId: 'com.example.swaptry',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyASI2gZS3mP1hz1JYwCaRJ4Kuwi_UaaNhQ',
-    appId: '1:756398379505:ios:01b8bd335feb451b553450',
-    messagingSenderId: '756398379505',
-    projectId: 'swaptry-c875a',
-    storageBucket: 'swaptry-c875a.appspot.com',
-    iosClientId: '756398379505-v2f1ssdh9lkonng0ts4h0rofnkl9bciq.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD95IFsMOcjEvU2Dnb8lqHitenhT_AStnY',
+    appId: '1:509935924102:ios:44c62206c81d84373eb207',
+    messagingSenderId: '509935924102',
+    projectId: 'swaptry2',
+    storageBucket: 'swaptry2.appspot.com',
+    iosClientId: '509935924102-s74jqu5u94241udpiftvkkjupsn0vahk.apps.googleusercontent.com',
     iosBundleId: 'com.example.swaptry',
   );
 }

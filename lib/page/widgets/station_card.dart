@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/detail_screen.dart';
+import 'package:intl/intl.dart';
 
 class StationCard extends StatelessWidget {
 
@@ -12,7 +13,7 @@ class StationCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const DetailScreen())
+          context, MaterialPageRoute(builder: (_) => DetailScreen(station.image, station.name, station.address, station.price, station.distance, station.latitude, station.longitude, station.currLoc)),
         );
       },
       child: Container( 
@@ -30,9 +31,7 @@ class StationCard extends StatelessWidget {
                   image: AssetImage(station.image),
                   fit: BoxFit.cover,
                 ),
-              ),
-              
-              
+              ),   
             ),
             const SizedBox(width: 10),
             Column(     
@@ -74,7 +73,9 @@ class StationCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Rp ${station.price}',
+                      NumberFormat.currency(
+                        locale: 'id', symbol: 'Rp ', decimalDigits: 0
+                      ).format(station.price),
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
