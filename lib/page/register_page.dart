@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 import 'package:swaptry/page/widgets/utils.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -65,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     width: 119, height: 55,
                     decoration: BoxDecoration(
-                      color: const Color(0xff6E80FE),
+                      color: purple,
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
@@ -231,7 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: signUp,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white, 
-                    backgroundColor: const Color(0xff6E80FE),
+                    backgroundColor: purple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(23),
                     ),

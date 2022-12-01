@@ -12,6 +12,9 @@ class MainPageRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
       scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       home: StreamBuilder<User?>(

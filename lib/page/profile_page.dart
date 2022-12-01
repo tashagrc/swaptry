@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -20,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xff6E80FE),
+          backgroundColor: purple,
           elevation: 2,
           title: const Text(
             'Profile',
@@ -72,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   icon: const Icon(Icons.logout_rounded, size: 27,),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white, 
-                    backgroundColor: const Color(0xff6E80FE),
+                    backgroundColor: purple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

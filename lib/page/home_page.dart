@@ -4,10 +4,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
-import 'package:google_static_maps_controller/google_static_maps_controller.dart'
-    as stat;
+import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 import 'package:swaptry/main.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,8 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     fetchLocation();
-    _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: _initialcameraposition, zoom: 14.5)));
+    _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
     super.initState();
   }
 
@@ -44,18 +43,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Color(0xff565656),
+        iconTheme: IconThemeData(
+          color: darkGrey,
         ),
         toolbarHeight: 67,
-        backgroundColor: const Color(0xff6E80FE),
+        backgroundColor: purple,
         elevation: 0,
         title: Center(
           child: InkWell(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const SearchPage1()),
+                MaterialPageRoute(builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
               );
             },
             child: Container(
@@ -67,13 +66,13 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
-                children: const <Widget>[
-                  Icon(Icons.search),
-                  SizedBox(width: 10),
+                children: <Widget>[
+                  const Icon(Icons.search),
+                  const SizedBox(width: 10),
                   Text(
                     'Search swap station',
                     style: TextStyle(
-                      color: Color(0xff565656),
+                      color: darkGrey,
                       fontSize: 16,
                     ),
                   ),
@@ -86,8 +85,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Image.asset('assets/img/home_rectangle.png',
-                fit: BoxFit.fill, width: MediaQuery.of(context).size.width),
+            Image.asset('assets/img/home_rectangle.png', fit: BoxFit.fill, width: MediaQuery.of(context).size.width),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               margin: const EdgeInsets.only(top: 83),
@@ -99,20 +97,13 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 8,
-                        ),
-                      ],
+                      boxShadow: shadow,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, bottom: 7, top: 13),
+                          margin: const EdgeInsets.only(left: 20, bottom: 7, top: 12),
                           child: const Text(
                             'Station around you',
                             style: TextStyle(
@@ -121,52 +112,42 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Stack(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              width: MediaQuery.of(context).size.width,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: stat.StaticMap(
-                                  googleApiKey:
-                                      'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                                  center: stat.Location(
-                                      _initialcameraposition.latitude,
-                                      _initialcameraposition.longitude),
-                                  zoom: 14,
-                                  scaleToDevicePixelRatio: true,
-                                  markers: [
-                                    stat.Marker(
-                                        size: stat.MarkerSize.mid,
-                                        color: const Color(0xff6E80FE),
-                                        locations: [
-                                          stat.GeocodedLocation.latLng(
-                                              _initialcameraposition.latitude,
-                                              _initialcameraposition.longitude)
-                                        ]
-                                      ),
-                                    ],
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: InkWell(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: stat.StaticMap(
+                                googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                center: stat.Location(
+                                    _initialcameraposition.latitude,
+                                    _initialcameraposition.longitude),
+                                zoom: 14,
+                                scaleToDevicePixelRatio: true,
+                                markers: [
+                                  stat.Marker(
+                                    size: stat.MarkerSize.mid,
+                                    color: purple,
+                                    locations: [
+                                      stat.GeocodedLocation.latLng(
+                                          _initialcameraposition.latitude,
+                                          _initialcameraposition.longitude)
+                                    ]
                                   ),
-                                ),
+                                ],
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const SearchPage1()),
-                                  );
-                                },
-                                child: SizedBox(
-                                  height:MediaQuery.of(context).size.height * 0.2,
-                                  width: MediaQuery.of(context).size.width,
-                                ),
-                              ),
-                            ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
+                              );
+                            },
                           ),
+                        ),
                         Container(
                           margin: const EdgeInsets.only(left: 20, top: 17),
                           child: const Text(
@@ -177,30 +158,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 90,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            children: [
-                              Container(
-                                height:MediaQuery.of(context).size.height * 0.063,
-                                alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.only(left: 20),
-                                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 2, top: 10),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffF0F0F0),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Text(
-                                  'Gesits',
-                                  style: TextStyle(
-                                    color: Color(0xff4a4a4a),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Container(
+                          height:MediaQuery.of(context).size.height * 0.065,
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(left: 20),
+                          margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF0F0F0),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            'Gesits',
+                            style: TextStyle(
+                              color: darkerGrey,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -208,12 +181,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 15),
-                    child: const Text(
-                      'Nearby',
+                    child: Text(
+                      'Featured Station',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff4a4a4a),
+                        color: darkerGrey,
                       ),
                     ),
                   ),
@@ -276,7 +249,7 @@ class _HomePageState extends State<HomePage> {
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;
-        _initialcameraposition = LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude);
+        _initialcameraposition = LatLng(currentLocation.latitude!, currentLocation.longitude!);
       });
     });
   }
