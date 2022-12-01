@@ -34,12 +34,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     fetchLocation();
+    _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context){
-    _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
+    
     return Scaffold(
       extendBodyBehindAppBar: true,  
       appBar: AppBar(
@@ -280,11 +281,11 @@ class _HomePageState extends State<HomePage> {
     }
 
     currentLocation = await location.getLocation();
-    location.onLocationChanged.listen((LocationData currentLocation) {
+    // location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;
-        _initialcameraposition = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+        _initialcameraposition = LatLng(currentLocation!.latitude!, currentLocation!.longitude!);
       });
-    });
+    // });
   }
 }
