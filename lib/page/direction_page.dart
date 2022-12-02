@@ -62,12 +62,18 @@ class _DirectionPageState extends State<DirectionPage> {
     
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'Directions',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          backgroundColor: purple,
+        leading: IconButton(
+          onPressed: () {
+            popAwait();
+          },
+           icon: const Icon(Icons.arrow_back_rounded)
         ),
+        title: const Text(
+          'Directions',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+        backgroundColor: purple,
+      ),
       
       body:Stack(
         children: [
@@ -190,5 +196,29 @@ class _DirectionPageState extends State<DirectionPage> {
     setState(() {
       distance = totDistance.toStringAsPrecision(4);
     });
+  }
+
+  popAwait() async{
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) 
+      => Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                'Please wait',
+                style: textStyle(25, bold, greyText),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            const CircularProgressIndicator(),
+          ],
+        ),
+      )));
+    await Future.delayed(const Duration(milliseconds: 2000));
+    Navigator.of(context)
+    ..pop()
+    ..pop();
   }
 }

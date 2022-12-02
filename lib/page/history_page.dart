@@ -50,7 +50,7 @@ class _HistoryPageState extends State<HistoryPage> {
               const SizedBox(height: 5),
         
               StreamBuilder<QuerySnapshot>(
-                stream: transaction.snapshots(),
+                stream: transaction.orderBy('orderDate', descending: true).snapshots(),
                 builder: (_, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
