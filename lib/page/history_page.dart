@@ -43,8 +43,8 @@ class _HistoryPageState extends State<HistoryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'History',
-                style: textStyle(20, semiBold, black),
+                'Your History',
+                style: textStyle(23, bold, black),
               ),
         
               const SizedBox(height: 5),

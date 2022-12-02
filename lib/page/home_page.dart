@@ -181,7 +181,8 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData && currentLocation != null) {
                         return Column(
                           children: (snapshot.data!).docs.map((e) =>
-                            StationCard(Station(
+                            StationCard(
+                              Station(
                                 image: e['image'],
                                 name: e['stationName'],
                                 address: e['address'],
@@ -194,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                                 currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
                               ),
                             ),
-                          ).toList(),
+                          ).take(5).toList(),
                         );
                       } else {
                         return const Center(child: CircularProgressIndicator());

@@ -13,7 +13,7 @@ class HistoryCard extends StatelessWidget {
     return InkWell(
       onTap: () {
          Navigator.push(
-          context, MaterialPageRoute(builder: (_) => HistoryDetailPage(history.name, history.address, history.price, history.latitude, history.longitude, history.currLoc)),
+          context, MaterialPageRoute(builder: (_) => HistoryDetailPage(history)),
         );
       },
       child: Column(
@@ -63,8 +63,8 @@ class HistoryCard extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10),
             width: MediaQuery.of(context).size.width,
-            height: 1.5,
-            color: lightGrey,
+            height: 1,
+            color: const Color(0xffBBBBBB),
           )
         ],
       ),
