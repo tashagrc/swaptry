@@ -10,6 +10,8 @@ import 'package:swaptry/page/widgets/station_card.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 import 'package:swaptry/main.dart';
 
+
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -18,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  
   LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
   GoogleMapController? _googleMapController;
   
@@ -62,7 +64,7 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width - 40,
               padding: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
-                color: const Color(0xfff5f5f5),
+                color: white,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -71,10 +73,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 10),
                   Text(
                     'Search swap station',
-                    style: TextStyle(
-                      color: darkGrey,
-                      fontSize: 16,
-                    ),
+                    style: textStyle(16, medium, darkGrey)
                   ),
                 ],
               ),
@@ -95,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.44,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: white,
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: shadow,
                     ),
@@ -104,12 +103,9 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(left: 20, bottom: 7, top: 12),
-                          child: const Text(
+                          child: Text(
                             'Station around you',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                            ),
+                            style: textStyle(20, bold, black)
                           ),
                         ),
                         Container(
@@ -150,12 +146,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 20, top: 17),
-                          child: const Text(
+                          child: Text(
                             'Your Motorcycle Type',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: textStyle(16, semiBold, black)
                           ),
                         ),
                         Container(
@@ -164,16 +157,12 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(left: 20),
                           margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                           decoration: BoxDecoration(
-                            color: const Color(0xffF0F0F0),
+                            color: lightGrey,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             'Gesits',
-                            style: TextStyle(
-                              color: darkerGrey,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                            ),
+                            style: textStyle(15, semiBold, darkerGrey)
                           ),
                         ),
                       ],
@@ -183,11 +172,7 @@ class _HomePageState extends State<HomePage> {
                     margin: const EdgeInsets.only(top: 15),
                     child: Text(
                       'Featured Station',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: darkerGrey,
-                      ),
+                      style: textStyle(20, semiBold, darkerGrey)
                     ),
                   ),
                   StreamBuilder<QuerySnapshot>(
@@ -206,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                                 )).toStringAsFixed(2)), 
                                 latitude: e['latitude'],
                                 longitude: e['longitude'],
-                                currLoc: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
+                                currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
                               ),
                             ),
                           ).toList(),

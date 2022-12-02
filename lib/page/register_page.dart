@@ -9,7 +9,6 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({
     Key? key,
     required this.onClickedLogin,
-    
   }) : super(key: key);
 
   @override
@@ -33,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    var confirmPass;
+    String? confirmPass;
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(40),
@@ -42,23 +41,19 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 30,),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
                     onTap: widget.onClickedLogin,
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 119, height: 55,
                       child: Center(
                         child: Text(
                           'Login',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight:FontWeight.w600,
-                            fontSize: 18,
-                          ),
+                          style: textStyle(18, semiBold, black),
                         ),
                       ),
                     ),
@@ -70,36 +65,27 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: black.withOpacity(0.2),
                           offset: const Offset(0,3),
                           blurRadius: 11,
                         ),
                       ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         'Register',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight:FontWeight.w600,
-                          fontSize: 18,
-                        ),
+                        style: textStyle(18, semiBold, white),
                       ),
                     ),
-                    
                   ),
                 ],
               ),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 'Let\'s create\nyou an account!',
                 textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff4A4A4A),
-                ),
+                style: textStyle(35, bold, darkerGrey)
               ),
               const SizedBox(height: 30,),
               Stack(
@@ -107,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     height: 55,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: white,
                       borderRadius: BorderRadius.circular(23),
                       boxShadow: [
                         BoxShadow(
@@ -119,12 +105,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 5),
                     child: TextFormField(
                       controller: emailController,
                       autocorrect: false,
                       validator: (value) {
-                        if(value!.isEmpty || value == null){
+                        if(value!.isEmpty){
                           return 'Please enter a valid email address.';
                         }
 
@@ -133,15 +119,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         if(!regex.hasMatch(value)){
                           return 'Invalid E-mail Address format.';
                         } 
-                        
-                        
                         return null;
                       },
                       keyboardType: TextInputType.emailAddress,
-                      cursorColor: Colors.black,
+                      cursorColor: black,
                       decoration: const InputDecoration(
                         hintText: 'Email',
                         border: InputBorder.none,
+                        prefixIcon: Icon(Icons.email_rounded),
                       ),
                     ),
                   ),
@@ -153,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     height: 55,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: white,
                       borderRadius: BorderRadius.circular(23),
                       boxShadow: [
                         BoxShadow(
@@ -165,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 5),
                     child: TextFormField(
                       controller: passwordController,
                       autocorrect: false,
@@ -178,10 +163,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         return null;
                       },
                       obscureText: true,
-                      cursorColor: Colors.black,
+                      cursorColor: black,
                       decoration: const InputDecoration(
                         hintText: 'Password',
                         border: InputBorder.none,
+                        prefixIcon: Icon(Icons.lock),
                       ),
                     ),
                   ),
@@ -193,7 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Container(
                     height: 55,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: white,
                       borderRadius: BorderRadius.circular(23),
                       boxShadow: [
                         BoxShadow(
@@ -205,7 +191,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 5),
                     child: TextFormField(
                       autocorrect: false,
                       validator: (value) {
@@ -216,10 +202,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         return null;
                       },
                       obscureText: true,
-                      cursorColor: Colors.black,
+                      cursorColor: black,
                       decoration: const InputDecoration(
                         hintText: 'Confirm Password',
                         border: InputBorder.none,
+                        prefixIcon: Icon(Icons.lock),
                       ),
                     ),
                   ),
@@ -230,22 +217,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: signUp,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, 
-                    backgroundColor: purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(23),
-                    ),
-                  ),
+                  style: buttonStyle,
                   
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Register',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600
-                      ),
+                      style: textStyle(18, semiBold, white)
                     ),
                   ),
                 ),
@@ -255,28 +232,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-  }
-
-  void changeShadowColour(int idx){
-    if(shadowColorEmail == Colors.red && idx == 1){
-      setState(() {
-        shadowColorEmail = const Color(0xff565656);
-      });
-    }else if(idx == 1){
-      setState(() {
-        shadowColorEmail = Colors.red;
-      });
-    }
-
-    if(shadowColorPass == Colors.red && idx == 2){
-      setState(() {
-        shadowColorPass = const Color(0xff565656);
-      });
-    }else if(idx == 2){
-      setState(() {
-        shadowColorPass = Colors.red;
-      });
-    }
   }
 
   Future signUp() async{

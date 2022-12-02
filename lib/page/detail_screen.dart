@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:swaptry/page/direction_page.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
+import 'package:swaptry/page/payment_page.dart';
 import 'package:swaptry/page/widgets/appTheme.dart';
 
 // ignore: must_be_immutable
@@ -51,9 +52,9 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Swap Station Details',
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(fontWeight: bold),
         ),
         backgroundColor: purple,
       ),
@@ -72,11 +73,11 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(20),
                     ),
-                    color: Colors.white),
+                    color: white),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,45 +87,29 @@ class _DetailScreenState extends State<DetailScreen> {
                       width: MediaQuery.of(context).size.width,
                       child: Text(
                         _name,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff4A4A4A),
-                        ),
+                        style: textStyle(25, semiBold, darkerGrey)
                       ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text(
                         _address,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff818181),
-                        ),
+                        style: textStyle(14, medium, greyText)
                       ),
                     ),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: const Text(
+                      child: Text(
                         'Directions',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff4A4A4A),
-                        ),
+                        style: textStyle(17, medium, darkerGrey)
                       ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text(
                         '$_distance Km From you',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff818181),
-                        ),
+                        style: textStyle(16, regular, greyText)
                       ),
                     ),
                     Container(
@@ -157,18 +142,12 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.only(top: 20),
-                      child: const Text(
+                      child: Text(
                         'Available Batteries',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff4A4A4A),
-                          fontSize: 18,
-                        ),
+                        style: textStyle(18, medium, darkerGrey)
                       ),
                     ),
                     const SizedBox(
@@ -186,12 +165,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 5.5),
                           padding: const EdgeInsets.only(left: 10),
-                          child: const Text(
+                          child: Text(
                             'Gesits Battery',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                            style: textStyle(17, medium, white)
                           ),
                         ),
                         Container(
@@ -201,11 +177,8 @@ class _DetailScreenState extends State<DetailScreen> {
                             NumberFormat.currency(
                               locale: 'id',
                               symbol: 'Rp ',
-                              decimalDigits: 0).format(_price),
-                            style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                              decimalDigits: 2).format(_price),
+                            style: textStyle(15, medium, white)
                           ),
                         ),
                         Center(
@@ -214,21 +187,17 @@ class _DetailScreenState extends State<DetailScreen> {
                             width: MediaQuery.of(context).size.width - 50,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: purple,
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: const Center(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => PaymentPage(_name,_address,_price, _latitude,_longitude)),
+                                );
+                              },
+                              style: buttonStyle2,
+                              child: Center(
                                 child: Text(
                                   'SWAP!',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xff4A4A4A),
-                                      fontWeight: FontWeight.w700),
+                                  style: textStyle(18, bold, darkerGrey)
                                 ),
                               ),
                             ),

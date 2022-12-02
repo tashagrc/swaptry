@@ -74,7 +74,7 @@ class StationCard extends StatelessWidget {
                     ),
                     Text(
                       NumberFormat.currency(
-                        locale: 'id', symbol: 'Rp ', decimalDigits: 0
+                        locale: 'id', symbol: 'Rp ', decimalDigits: 2
                       ).format(station.price),
                       style: const TextStyle(
                         fontSize: 15,

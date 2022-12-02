@@ -43,16 +43,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 51,
                     height: 51,
                   ),
-                  const SizedBox(width: 12,),
+                  const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Signed In As',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: textStyle(20, bold, darkerGrey)
                       ),
                       Text(
                         user.email!,
@@ -62,30 +59,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 45,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    signOut();
-                  },
-                  icon: const Icon(Icons.logout_rounded, size: 27,),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, 
-                    backgroundColor: purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  
-                  label: const Text(
+                  onPressed: () {signOut();},
+                  icon: const Icon(Icons.logout_rounded, size: 27),
+                  style: buttonStyle,
+                  label: Text(
                     'Log Out',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600
-                    ),
+                    style: textStyle(18, semiBold, white)
                   ),
                 ),
               ),

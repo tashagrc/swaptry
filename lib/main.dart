@@ -6,6 +6,8 @@ import 'package:swaptry/main_page.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference stationName = firestore.collection('station');
+CollectionReference transaction = firestore.collection('transactionHistory');
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

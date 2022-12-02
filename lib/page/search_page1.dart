@@ -41,8 +41,7 @@ class SearchPage1State extends State<SearchPage1> {
       body: Column(
         children: [
           Container(
-            // height: 60,
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
             decoration: BoxDecoration(
               color: purple,
             ),
@@ -52,11 +51,13 @@ class SearchPage1State extends State<SearchPage1> {
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: const BorderSide(
-                          width: 0, style: BorderStyle.none),
+                        width: 0,
+                        style: BorderStyle.none
+                      ),
                     ),
                     hintText: 'Search Station',
                     contentPadding: const EdgeInsets.all(0),
@@ -94,60 +95,8 @@ class SearchPage1State extends State<SearchPage1> {
                         longitude: e['longitude'],
                         currLoc: _currenLocation,
                       ),
-                    ),).where((e) => e.station.name.toLowerCase().contains(station.toLowerCase())).toList(),
+                    ),).where((e) => e.station.name.toLowerCase().contains(station.toLowerCase()) || e.station.address.toLowerCase().contains(station.toLowerCase())).toList(),
                   );
-                  // ListView.builder(
-                  //   itemBuilder: (context, index) {
-                  //     // var data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-                  //     if (station.isNotEmpty) {
-                  //       return Column(
-                  //         children: (snapshot.data!).docs.map((e) => StationCard(
-                  //           Station(
-                  //             image: e['image'],
-                  //             name: e['stationName'],
-                  //             address: e['address'],
-                  //             price: e['price1'],
-                  //             distance: double.parse((getDistance(
-                  //                     _currenLocation.latitude,
-                  //                     _currenLocation.longitude,
-                  //                     e['location'].latitude,
-                  //                     e['location'].longitude))
-                  //                 .toStringAsFixed(2)),
-                  //             latitude: e['latitude'],
-                  //             longitude: e['longitude'],
-                  //             currLoc: _currenLocation,
-                  //           ),
-                  //         ),).toList(),
-                  //       );
-                  //     }
-                  //     // if (data['stationName']
-                  //     //     .toString()
-                  //     //     .toLowerCase()
-                  //     //     .startsWith(station.toLowerCase())) {
-                  //     //   return Column(
-                  //     //     children: (snapshot.data!).docs.map(
-                  //     //       (e) => StationCard(
-                  //     //         Station(
-                  //     //           image: e['image'],
-                  //     //           name: e['stationName'],
-                  //     //           address: e['address'],
-                  //     //           price: e['price1'],
-                  //     //           distance: double.parse((getDistance(
-                  //     //                   _currenLocation.latitude,
-                  //     //                   _currenLocation.longitude,
-                  //     //                   e['location'].latitude,
-                  //     //                   e['location'].longitude))
-                  //     //               .toStringAsFixed(2)),
-                  //     //           latitude: e['latitude'],
-                  //     //           longitude: e['longitude'],
-                  //     //           currLoc: _currenLocation,
-                  //     //         ),
-                  //     //       ),
-                  //     //     ).toList(),
-                  //     //   );
-                  //     // }
-                  //     return Container();
-                  //   });
                 }
                 return const Center(child: CircularProgressIndicator());
               }, // builder

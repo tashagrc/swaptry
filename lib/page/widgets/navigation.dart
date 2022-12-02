@@ -19,7 +19,6 @@ class _NavigationState extends State<Navigation> {
     const HomePage(),
     const HistoryPage(),
     const ProfilePage(),
-    // const DetailScreen(),
   ];
 
   @override
