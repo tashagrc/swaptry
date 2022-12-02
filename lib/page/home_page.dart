@@ -10,8 +10,6 @@ import 'package:swaptry/page/widgets/station_card.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 import 'package:swaptry/main.dart';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,6 +20,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   
   LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
+  late List<stat.GeocodedLocation> markerList = [
+    const stat.GeocodedLocation.latLng(0, 0),
+  ];
   GoogleMapController? _googleMapController;
   
   @override
@@ -36,10 +37,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     fetchLocation();
+    getMarker();
     _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
     super.initState();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,21 +119,33 @@ class _HomePageState extends State<HomePage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: stat.StaticMap(
+                                paths: [
+                                  stat.Path.circle(
+                                    center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
+                                    radius: 1500,
+                                    fillColor: purple.withOpacity(0.3),
+                                    color: purple.withOpacity(0),
+                                    encoded: true
+                                  )
+                                ],
                                 googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
                                 center: stat.Location(
                                     _initialcameraposition.latitude,
                                     _initialcameraposition.longitude),
-                                zoom: 14,
+                                zoom: 13,
                                 scaleToDevicePixelRatio: true,
                                 markers: [
                                   stat.Marker(
                                     size: stat.MarkerSize.mid,
-                                    color: purple,
+                                    color: Colors.red,
                                     locations: [
-                                      stat.GeocodedLocation.latLng(
-                                          _initialcameraposition.latitude,
-                                          _initialcameraposition.longitude)
+                                      stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
                                     ]
+                                  ),
+                                  stat.Marker(
+                                    size: stat.MarkerSize.small,
+                                    color: purple,
+                                    locations: markerList,
                                   ),
                                 ],
                               ),
@@ -237,6 +252,20 @@ class _HomePageState extends State<HomePage> {
         currentLocation = currentLocation;
         _initialcameraposition = LatLng(currentLocation.latitude!, currentLocation.longitude!);
       });
+    });
+  }
+
+  Future getMarker() async{
+    await firestore.collection("station").get().then((querySnapshot){
+      var fireBase = querySnapshot.docs;
+      for(var i = 1; i < fireBase.length; i++){
+        GeoPoint point = fireBase[i].data()['location'];
+        print(point);
+        markerList.add(
+          stat.GeocodedLocation.latLng(double.parse('${point.latitude}'), 
+          double.parse('${point.longitude}'))
+        );
+      }
     });
   }
 }
