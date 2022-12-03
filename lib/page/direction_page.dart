@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 
 
@@ -61,12 +62,18 @@ class _DirectionPageState extends State<DirectionPage> {
     
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'Directions',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          backgroundColor: const Color(0xff6E80FE),
+        leading: IconButton(
+          onPressed: () {
+            popAwait();
+          },
+           icon: const Icon(Icons.arrow_back_rounded)
         ),
+        title: const Text(
+          'Directions',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+        backgroundColor: purple,
+      ),
       
       body:Stack(
         children: [
@@ -109,11 +116,11 @@ class _DirectionPageState extends State<DirectionPage> {
                   padding: const EdgeInsets.only(top: 8),
                   height: 85,
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(20),
                     ),
-                    color: Color(0xff6E80FE),
+                    color: purple,
                   ),
                   child: Column(
                     children: [
@@ -189,5 +196,29 @@ class _DirectionPageState extends State<DirectionPage> {
     setState(() {
       distance = totDistance.toStringAsPrecision(4);
     });
+  }
+
+  popAwait() async{
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) 
+      => Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                'Please wait',
+                style: textStyle(25, bold, greyText),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            const CircularProgressIndicator(),
+          ],
+        ),
+      )));
+    await Future.delayed(const Duration(milliseconds: 2000));
+    Navigator.of(context)
+    ..pop()
+    ..pop();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 
 import '../../carbonara_swaptry_icons.dart';
 import '../history_page.dart';
@@ -18,7 +19,6 @@ class _NavigationState extends State<Navigation> {
     const HomePage(),
     const HistoryPage(),
     const ProfilePage(),
-    // const DetailScreen(),
   ];
 
   @override
@@ -29,7 +29,7 @@ class _NavigationState extends State<Navigation> {
           children: screens,
         ),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: const Color(0xff6e80fe),
+          selectedItemColor: purple,
           unselectedItemColor: const Color(0xffababab),
           elevation: 10,
           currentIndex: currentIndex,

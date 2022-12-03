@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:swaptry/page/direction_page.dart';
-import 'package:google_static_maps_controller/google_static_maps_controller.dart'
-    as stat;
+import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
+import 'package:swaptry/page/payment_page.dart';
+import 'package:swaptry/page/widgets/appTheme.dart';
 
 // ignore: must_be_immutable
 class DetailScreen extends StatefulWidget {
@@ -22,8 +23,7 @@ class DetailScreen extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<DetailScreen> createState() => _DetailScreenState(
-      image, name, address, price, latitude, longitude, currLoc, distance);
+  State<DetailScreen> createState() => _DetailScreenState(image, name, address, price, latitude, longitude, currLoc, distance);
 }
 
 class _DetailScreenState extends State<DetailScreen> {
@@ -52,215 +52,165 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Swap Station Details',
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(fontWeight: bold),
         ),
-        backgroundColor: const Color(0xff6E80FE),
+        backgroundColor: purple,
       ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Image.asset(
-              _image,
-              width: MediaQuery.of(context).size.width,
-              height: 190,
-              fit: BoxFit.cover,
-            ),
-            ListView(
-              children: [
-                const SizedBox(
-                  height: 170,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
+      body: Stack(
+        children: [
+          Image.asset(
+            _image,
+            width: MediaQuery.of(context).size.width,
+            height: 190,
+            fit: BoxFit.cover,
+          ),
+          ListView(
+            children: [
+              const SizedBox(
+                height: 170,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                    color: white),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        _name,
+                        style: textStyle(25, semiBold, darkerGrey)
                       ),
-                      color: Colors.white),
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 15),
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          _name,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff4A4A4A),
-                          ),
-                        ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        _address,
+                        style: textStyle(14, medium, greyText)
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          _address,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff818181),
-                          ),
-                        ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Directions',
+                        style: textStyle(17, medium, darkerGrey)
                       ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: const Text(
-                          'Directions',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff4A4A4A),
-                          ),
-                        ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        '$_distance Km From you',
+                        style: textStyle(16, regular, greyText)
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          '$_distance Km From you',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff818181),
-                          ),
-                        ),
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.only(top: 10),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: stat.StaticMap(
-                                googleApiKey:
-                                    'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                                center: stat.Location(_latitude, _longitude),
-                                zoom: 14,
-                                scaleToDevicePixelRatio: true,
-                                markers: [
-                                  stat.Marker(
-                                      color: const Color(0xff6E80FE),
-                                      locations: [
-                                        stat.GeocodedLocation.latLng(
-                                            _latitude, _longitude)
-                                      ]),
-                                ],
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(top: 10),
+                      child: InkWell(
+                        onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => DirectionPage(_name,_address,_latitude,_longitude,_currLoc)),);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: stat.StaticMap(
+                            googleApiKey:
+                                'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                            center: stat.Location(_latitude, _longitude),
+                            zoom: 14,
+                            scaleToDevicePixelRatio: true,
+                            markers: [
+                              stat.Marker(
+                                color: purple,
+                                locations: [
+                                  stat.GeocodedLocation.latLng(_latitude, _longitude)
+                                ]
                               ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => DirectionPage(
-                                        _name,
-                                        _address,
-                                        _latitude,
-                                        _longitude,
-                                        _currLoc)),
-                              );
-                            },
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              width: MediaQuery.of(context).size.width,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: const Text(
-                          'Available Batteries',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff4A4A4A),
-                            fontSize: 18,
+                            ],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                        'Available Batteries',
+                        style: textStyle(18, medium, darkerGrey)
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            height: 110,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff6E80FE),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          height: 110,
+                          decoration: BoxDecoration(
+                            color: purple,
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 5.5),
-                            padding: const EdgeInsets.only(left: 10),
-                            child: const Text(
-                              'Gesits Battery',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5.5),
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Gesits Battery',
+                            style: textStyle(17, medium, white)
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 28),
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp ',
-                                      decimalDigits: 0)
-                                  .format(_price),
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 28),
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            NumberFormat.currency(
+                              locale: 'id',
+                              symbol: 'Rp ',
+                              decimalDigits: 2).format(_price),
+                            style: textStyle(15, medium, white)
                           ),
-                          Center(
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 54),
-                              width: MediaQuery.of(context).size.width - 50,
-                              height: 50,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: const Color(0xff6E80FE),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'SWAP!',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Color(0xff4A4A4A),
-                                        fontWeight: FontWeight.w700),
-                                  ),
+                        ),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 54),
+                            width: MediaQuery.of(context).size.width - 50,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => PaymentPage(_name,_address,_price, _latitude,_longitude)),
+                                );
+                              },
+                              style: buttonStyle2,
+                              child: Center(
+                                child: Text(
+                                  'SWAP!',
+                                  style: textStyle(18, bold, darkerGrey)
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
