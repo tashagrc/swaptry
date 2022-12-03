@@ -15,20 +15,19 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       backgroundColor: purple,
       body: Stack(
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: 360,
-              height: 560,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/img/welcome_bar.png"),
-                  fit: BoxFit.fill,
-                ),
+        children:[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 560,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/img/welcome_bar.png"),
+                fit: BoxFit.fill,
               ),
             ),
           ),
+          Container(), //LU ISI GAMBAR
+
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
