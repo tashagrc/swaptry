@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:swaptry/models/ads.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
+import 'package:swaptry/page/widgets/ads_card.dart';
 import 'package:swaptry/page/widgets/appTheme.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
@@ -44,6 +46,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  List<String> items =[
+    'assets/img/ads-2.jpg',
+    'assets/img/ads-1.jpg',
+  ];
   
   @override
   Widget build(BuildContext context) {
@@ -97,11 +103,18 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.44,
+                    height: MediaQuery.of(context).size.height * 0.42,
                     decoration: BoxDecoration(
                       color: white,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: shadow,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(2, 3),
+                        ),
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,48 +130,63 @@ class _HomePageState extends State<HomePage> {
                           height: MediaQuery.of(context).size.height * 0.2,
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: InkWell(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: stat.StaticMap(
-                                paths: [
-                                  stat.Path.circle(
-                                    center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
-                                    radius: 1300,
-                                    fillColor: purple.withOpacity(0.3),
-                                    color: purple.withOpacity(0),
-                                    encoded: true
-                                  )
-                                ],
-                                googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                                center: stat.Location(
-                                    _initialcameraposition.latitude,
-                                    _initialcameraposition.longitude),
-                                zoom: 14,
-                                scaleToDevicePixelRatio: true,
-                                markers: [
-                                  stat.Marker(
-                                    size: stat.MarkerSize.mid,
-                                    color: Colors.red,
-                                    locations: [
-                                      stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
-                                    ]
-                                  ),
-                                  stat.Marker(
-                                    size: stat.MarkerSize.small,
-                                    color: purple,
-                                    locations: markerList,
-                                  ),
-                                ],
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: lightGrey
+                          ),
+                          child: Stack(
+                            children: 
+                            [
+                              const Center(
+                                child: Text(
+                                  'Map not loaded\n please check your internet connection',
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
-                              );
-                            },
+                              InkWell(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: stat.StaticMap(
+                                    paths: [
+                                      stat.Path.circle(
+                                        center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
+                                        radius: 1300,
+                                        fillColor: purple.withOpacity(0.3),
+                                        color: purple.withOpacity(0),
+                                        encoded: true
+                                      )
+                                    ],
+                                    googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                    center: stat.Location(
+                                        _initialcameraposition.latitude,
+                                        _initialcameraposition.longitude),
+                                    zoom: 14,
+                                    scaleToDevicePixelRatio: true,
+                                    markers: [
+                                      stat.Marker(
+                                        size: stat.MarkerSize.mid,
+                                        color: Colors.red,
+                                        locations: [
+                                          stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
+                                        ]
+                                      ),
+                                      stat.Marker(
+                                        size: stat.MarkerSize.small,
+                                        color: purple,
+                                        locations: markerList,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
                         Container(
@@ -185,6 +213,18 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20,),
+                  Container(
+                    height: 180,
+                    width: 450,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 2,
+                      separatorBuilder: (context, _) => const SizedBox(width: 5,),
+                      itemBuilder: (context, index) => adsCard(items[index]),
+                    ),
+                  ),
+
                   Container(
                     margin: const EdgeInsets.only(top: 15),
                     child: Text(
@@ -245,7 +285,6 @@ class _HomePageState extends State<HomePage> {
       var fireBase = querySnapshot.docs;
       for(var i = 1; i < fireBase.length; i++){
         GeoPoint point = fireBase[i].data()['location'];
-        print(point);
         markerList.add(
           stat.GeocodedLocation.latLng(double.parse('${point.latitude}'), 
           double.parse('${point.longitude}'))

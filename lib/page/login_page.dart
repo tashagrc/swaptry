@@ -116,13 +116,17 @@ class _LoginPageState extends State<LoginPage> {
                       autocorrect: false,
                       validator: (value) {
                         if(value!.isEmpty){
+                          setState(() {shadowColorEmail = Colors.red;});
                           return 'Please enter a valid email address.';
                         }
 
                         String pattern = r'\w+@\w+\.\w+';
                         RegExp regex = RegExp(pattern);
-                        if(!regex.hasMatch(value)) return 'Invalid E-mail Address format.';
-
+                        if(!regex.hasMatch(value)){
+                          setState(() {shadowColorEmail = Colors.red;});
+                          return 'Invalid E-mail Address format.';
+                        }  
+                        setState(() {shadowColorEmail = darkGrey;});
                         return null;
                       },
                       keyboardType: TextInputType.emailAddress,
@@ -160,8 +164,10 @@ class _LoginPageState extends State<LoginPage> {
                       autocorrect: false,
                       validator: (value) {
                         if(value!.isEmpty|| value.length < 7){
+                          setState(() {shadowColorPass = Colors.red;});
                           return 'Password must be at least 7 characters long.';
                         }
+                        setState(() {shadowColorPass = darkGrey;});
                         return null;
                       },
                       obscureText: true,
@@ -209,13 +215,13 @@ class _LoginPageState extends State<LoginPage> {
       if (e.code == 'wrong-password') {
         setState(() {shadowColorPass = Colors.red;});
       }else if(e.code != 'wrong-password'){
-        setState(() {shadowColorPass = const Color(0xff565656);});
+        setState(() {shadowColorPass = darkGrey;});
       }
       
       if (e.code == 'user-not-found') {
         setState(() {shadowColorEmail = Colors.red;});
       }else if(e.code != 'user-not-found'){
-        setState(() {shadowColorEmail = const Color(0xff565656);});
+        setState(() {shadowColorEmail = darkGrey;});
       }
 
       Utils.showSnackBar(e.message);

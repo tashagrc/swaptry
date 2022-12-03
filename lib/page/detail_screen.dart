@@ -116,30 +116,45 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 10),
-                      child: InkWell(
-                        onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => DirectionPage(_name,_address,_latitude,_longitude,_currLoc)),);
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: stat.StaticMap(
-                            googleApiKey:
-                                'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                            center: stat.Location(_latitude, _longitude),
-                            zoom: 14,
-                            scaleToDevicePixelRatio: true,
-                            markers: [
-                              stat.Marker(
-                                color: purple,
-                                locations: [
-                                  stat.GeocodedLocation.latLng(_latitude, _longitude)
-                                ]
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: lightGrey
+                      ),
+                      child: Stack(
+                        children: 
+                          [
+                            const Center(
+                              child: Text(
+                                'Map not loaded\n please check your internet connection',
+                                textAlign: TextAlign.center,
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => DirectionPage(_name,_address,_latitude,_longitude,_currLoc)),);
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: stat.StaticMap(
+                                  googleApiKey:
+                                      'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                  center: stat.Location(_latitude, _longitude),
+                                  zoom: 14,
+                                  scaleToDevicePixelRatio: true,
+                                  markers: [
+                                    stat.Marker(
+                                      color: purple,
+                                      locations: [
+                                        stat.GeocodedLocation.latLng(_latitude, _longitude)
+                                      ]
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                       ),
                     ),
                     const SizedBox(height: 10),

@@ -16,12 +16,12 @@ FontWeight medium = FontWeight.w500;
 FontWeight regular = FontWeight.w400;
 
 var buttonStyle = ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, 
-                      backgroundColor: const Color(0xff6E80FE),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(23),
-                      ),
-                    );
+                    foregroundColor: Colors.white, 
+                    backgroundColor: const Color(0xff6E80FE),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(23),
+                    ),
+                  );
 
 var buttonStyle2 = ElevatedButton.styleFrom(
                     foregroundColor: purple,
