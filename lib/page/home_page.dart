@@ -130,48 +130,63 @@ class _HomePageState extends State<HomePage> {
                           height: MediaQuery.of(context).size.height * 0.2,
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: InkWell(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: stat.StaticMap(
-                                paths: [
-                                  stat.Path.circle(
-                                    center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
-                                    radius: 1300,
-                                    fillColor: purple.withOpacity(0.3),
-                                    color: purple.withOpacity(0),
-                                    encoded: true
-                                  )
-                                ],
-                                googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
-                                center: stat.Location(
-                                    _initialcameraposition.latitude,
-                                    _initialcameraposition.longitude),
-                                zoom: 14,
-                                scaleToDevicePixelRatio: true,
-                                markers: [
-                                  stat.Marker(
-                                    size: stat.MarkerSize.mid,
-                                    color: Colors.red,
-                                    locations: [
-                                      stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
-                                    ]
-                                  ),
-                                  stat.Marker(
-                                    size: stat.MarkerSize.small,
-                                    color: purple,
-                                    locations: markerList,
-                                  ),
-                                ],
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: lightGrey
+                          ),
+                          child: Stack(
+                            children: 
+                            [
+                              const Center(
+                                child: Text(
+                                  'Map not loaded\n please check your internet connection',
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
-                              );
-                            },
+                              InkWell(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: stat.StaticMap(
+                                    paths: [
+                                      stat.Path.circle(
+                                        center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
+                                        radius: 1300,
+                                        fillColor: purple.withOpacity(0.3),
+                                        color: purple.withOpacity(0),
+                                        encoded: true
+                                      )
+                                    ],
+                                    googleApiKey:'AIzaSyBRCUfJ3RAt0x91m6js-Y-2ShQkub1DId8',
+                                    center: stat.Location(
+                                        _initialcameraposition.latitude,
+                                        _initialcameraposition.longitude),
+                                    zoom: 14,
+                                    scaleToDevicePixelRatio: true,
+                                    markers: [
+                                      stat.Marker(
+                                        size: stat.MarkerSize.mid,
+                                        color: Colors.red,
+                                        locations: [
+                                          stat.GeocodedLocation.latLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
+                                        ]
+                                      ),
+                                      stat.Marker(
+                                        size: stat.MarkerSize.small,
+                                        color: purple,
+                                        locations: markerList,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => SearchPage1(LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude))),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
                         Container(
