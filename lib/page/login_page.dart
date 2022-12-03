@@ -209,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text.trim(), 
           password: passwordController.text.trim(),
         );
+        Navigator.pop(context);
       }
       
     } on FirebaseAuthException catch (e) {

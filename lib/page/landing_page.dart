@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swaptry/page/auth_page.dart';
 import 'package:swaptry/page/widgets/appTheme.dart';
 
 class LandingPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _LandingPageState extends State<LandingPage> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Stack(children: [
               Container(
@@ -31,13 +33,13 @@ class _LandingPageState extends State<LandingPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.2),
+                    top: MediaQuery.of(context).size.height * 0.16),
                 child: Image.asset('assets/img/logo_black.png'),
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.42),
+                      top: MediaQuery.of(context).size.height * 0.35),
                   child: Text(
                     "Welcome to Swaptry",
                     style: textStyle(20, bold, darkerGrey),
@@ -47,7 +49,7 @@ class _LandingPageState extends State<LandingPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.47),
+                    top: MediaQuery.of(context).size.height * 0.39),
                 child: Text("Swap your Electric Motorcycle Battery instantly!",
                     style: textStyle(15, regular, darkerGrey),
                     textAlign: TextAlign.center),
@@ -58,16 +60,25 @@ class _LandingPageState extends State<LandingPage> {
                 Text("Let’s start our journey,\nshall we?",
                     style: textStyle(20, bold, white),
                     textAlign: TextAlign.center),
-                SizedBox(
+                const SizedBox(height: 30,),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 35),
                   height: 55,
                   width: MediaQuery.of(context).size.width / 2,
                   child: ElevatedButton(
-                      onPressed: (() {}),
-                      style: buttonStyle2,
-                      child: Center(
-                        child: Text("Get Started",
-                            style: textStyle(16, semiBold, darkerGrey)),
-                      )),
+                    onPressed: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AuthPage()
+                        ),
+                      );
+                    }),
+                    style: buttonStyle2,
+                    child: Center(
+                      child: Text("Get Started",
+                        style: textStyle(16, semiBold, darkerGrey)),
+                    )),
                 )
               ],
             ),

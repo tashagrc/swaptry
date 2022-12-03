@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:location/location.dart';
 import 'package:swaptry/firebase_options.dart';
-import 'package:swaptry/main_page.dart';
+import 'package:swaptry/main_page_route.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference stationName = firestore.collection('station');

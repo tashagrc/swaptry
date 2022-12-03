@@ -241,6 +241,7 @@ class _RegisterPageState extends State<RegisterPage> {
           email: emailController.text.trim(), 
           password: passwordController.text.trim(),
         );
+        Navigator.pop(context);
       }
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);

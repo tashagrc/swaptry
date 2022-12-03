@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:swaptry/page/auth_page.dart';
 import 'package:swaptry/page/landing_page.dart';
 import 'package:swaptry/page/widgets/navigation.dart';
 import 'package:swaptry/page/widgets/utils.dart';
