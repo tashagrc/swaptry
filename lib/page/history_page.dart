@@ -24,6 +24,12 @@ class _HistoryPageState extends State<HistoryPage> {
   Location location = Location();
   
   @override
+  void initState() {
+    fetchLocation();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final User? user = auth.currentUser;
     final uid = user!.uid;
@@ -80,27 +86,9 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
     );
   }
+  
   fetchLocation() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    currentLocation = await location.getLocation();
+    
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         currentLocation = currentLocation;

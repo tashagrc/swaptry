@@ -10,21 +10,22 @@ import 'package:swaptry/page/widgets/station_card.dart';
 import 'package:google_static_maps_controller/google_static_maps_controller.dart' as stat;
 import 'package:swaptry/main.dart';
 
-
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageTest extends StatefulWidget {
+  const HomePageTest({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageTest> createState() => _HomePageTestState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageTestState extends State<HomePageTest> {
   
   LatLng _initialcameraposition = const LatLng(-6.175835, 106.827158);
   late List<stat.GeocodedLocation> markerList = [
     const stat.GeocodedLocation.latLng(0, 0),
   ];
+
+  Future<List<Station>>?  stationList;
+  
   GoogleMapController? _googleMapController;
   
   @override
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     fetchLocation();
+    getStation();
     getMarker();
     _googleMapController?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _initialcameraposition, zoom: 14.5)));
     super.initState();
@@ -47,6 +49,7 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
+    fetchLocation();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -124,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                 paths: [
                                   stat.Path.circle(
                                     center: stat.Location(_initialcameraposition.latitude, _initialcameraposition.longitude), 
-                                    radius: 1300,
+                                    radius: 1500,
                                     fillColor: purple.withOpacity(0.3),
                                     color: purple.withOpacity(0),
                                     encoded: true
@@ -134,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                 center: stat.Location(
                                     _initialcameraposition.latitude,
                                     _initialcameraposition.longitude),
-                                zoom: 14,
+                                zoom: 13,
                                 scaleToDevicePixelRatio: true,
                                 markers: [
                                   stat.Marker(
@@ -192,27 +195,41 @@ class _HomePageState extends State<HomePage> {
                       style: textStyle(20, semiBold, darkerGrey)
                     ),
                   ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: stationName.snapshots(),
-                    builder: (_, snapshot) {
+                  FutureBuilder<List<Station>>(
+                    future: stationList,
+                    builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return Column(
-                          children: (snapshot.data!).docs.map((e) =>
-                            StationCard(
-                              Station(
-                                image: e['image'],
-                                name: e['stationName'],
-                                address: e['address'],
-                                price: e['price1'],
-                                distance: double.parse((getDistance(
-                                  _initialcameraposition.latitude, _initialcameraposition.longitude ,e['location'].latitude, e['location'].longitude
-                                )).toStringAsFixed(2)), 
-                                latitude: e['latitude'],
-                                longitude: e['longitude'],
-                                currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
-                              ),
-                            ),
-                          ).take(5).toList(),
+                        return ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: ((context, index) { 
+                            
+                            return StationCard(
+                                Station(
+                                  image: snapshot.data![index].image,
+                                  name: snapshot.data![index].name,
+                                  address: snapshot.data![index].address,
+                                  price: snapshot.data![index].price,
+                                  distance: snapshot.data![index].distance, 
+                                  latitude: snapshot.data![index].latitude,
+                                  longitude: snapshot.data![index].longitude,
+                                  currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
+                                ),
+                            );}),
+                            // StationCard(
+                            //   Station(
+                            //     image: e['image'],
+                            //     name: e['stationName'],
+                            //     address: e['address'],
+                            //     price: e['price1'],
+                            //     distance: double.parse((getDistance(
+                            //       _initialcameraposition.latitude, _initialcameraposition.longitude ,e['location'].latitude, e['location'].longitude
+                            //     )).toStringAsFixed(2)), 
+                            //     latitude: e['latitude'],
+                            //     longitude: e['longitude'],
+                            //     currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
+                            //   ),
+                            // ),
+                          // ).take(5).toList(),
                         );
                       } else {
                         return const Center(child: CircularProgressIndicator());
@@ -229,7 +246,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   fetchLocation() async {
-    
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
 
     currentLocation = await location.getLocation();
     location.onLocationChanged.listen((LocationData currentLocation) {
@@ -245,10 +279,33 @@ class _HomePageState extends State<HomePage> {
       var fireBase = querySnapshot.docs;
       for(var i = 1; i < fireBase.length; i++){
         GeoPoint point = fireBase[i].data()['location'];
-        print(point);
         markerList.add(
           stat.GeocodedLocation.latLng(double.parse('${point.latitude}'), 
           double.parse('${point.longitude}'))
+        );
+      }
+    });
+  }
+
+  getStation() async{
+    final List stationList = await getStation();
+    await firestore.collection("station").get().then((querySnapshot){
+      var fireBase = querySnapshot.docs;
+      for(var i = 1; i < fireBase.length; i++){
+        stationList.add(
+          Station(
+            image: fireBase[i].data()['image'],
+            name: fireBase[i].data()['stationName'],
+            address: fireBase[i].data()['address'],
+            price: fireBase[i].data()['price1'],
+            distance: double.parse((getDistance(
+              _initialcameraposition.latitude, _initialcameraposition.longitude, 
+              fireBase[i].data()['location'].latitude, fireBase[i].data()['location'].longitude
+            )).toStringAsFixed(2)), 
+            latitude: fireBase[i].data()['latitude'],
+            longitude: fireBase[i].data()['longitude'],
+            currLoc: LatLng(_initialcameraposition.latitude, _initialcameraposition.longitude),
+          ),
         );
       }
     });

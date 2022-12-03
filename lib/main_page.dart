@@ -6,9 +6,19 @@ import 'package:swaptry/page/widgets/utils.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-class MainPageRoute extends StatelessWidget {
+
+
+class MainPageRoute extends StatefulWidget {
   const MainPageRoute({super.key});
+
+  @override
+  State<MainPageRoute> createState() => _MainPageRouteState();
+}
+
+class _MainPageRouteState extends State<MainPageRoute> {
+
   
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

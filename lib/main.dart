@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:location/location.dart';
 import 'package:swaptry/firebase_options.dart';
 import 'package:swaptry/main_page.dart';
 
@@ -24,7 +25,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  
+  Location location = Location();
   @override
   Widget build(BuildContext context){
     
@@ -34,5 +35,26 @@ class _MainPageState extends State<MainPage> {
       ),
       home: const MainPageRoute()
     );
+  }
+
+  getLocPermission() async{
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
   }
 }
