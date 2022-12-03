@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:swaptry/models/ads.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
+import 'package:swaptry/page/widgets/ads_card.dart';
 import 'package:swaptry/page/widgets/appTheme.dart';
 import 'package:swaptry/page/widgets/get_distance.dart';
 import 'package:swaptry/page/widgets/station_card.dart';
@@ -44,6 +46,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  List<String> items =[
+    'assets/img/ads-2.jpg',
+    'assets/img/ads-1.jpg',
+  ];
   
   @override
   Widget build(BuildContext context) {
@@ -97,11 +103,18 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.44,
+                    height: MediaQuery.of(context).size.height * 0.42,
                     decoration: BoxDecoration(
                       color: white,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: shadow,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(2, 3),
+                        ),
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,6 +198,18 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20,),
+                  Container(
+                    height: 180,
+                    width: 450,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 2,
+                      separatorBuilder: (context, _) => const SizedBox(width: 5,),
+                      itemBuilder: (context, index) => adsCard(items[index]),
+                    ),
+                  ),
+
                   Container(
                     margin: const EdgeInsets.only(top: 15),
                     child: Text(
@@ -245,7 +270,6 @@ class _HomePageState extends State<HomePage> {
       var fireBase = querySnapshot.docs;
       for(var i = 1; i < fireBase.length; i++){
         GeoPoint point = fireBase[i].data()['location'];
-        print(point);
         markerList.add(
           stat.GeocodedLocation.latLng(double.parse('${point.latitude}'), 
           double.parse('${point.longitude}'))

@@ -43,7 +43,7 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 40, top: 20, right: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
