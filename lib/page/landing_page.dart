@@ -19,59 +19,17 @@ class _LandingPageState extends State<LandingPage> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 560,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/img/welcome_bar.png"),
-                fit: BoxFit.fill,
+                image: AssetImage("assets/img/shape.png"),
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
-          Container(), //LU ISI GAMBAR
-
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                // const Text(
-                //   textAlign: TextAlign.center,
-                //   "Let's start our journey\nshall we?",
-                // ),
-                // FittedBox(
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       Navigator.push(context, MaterialPageRoute(
-                //         builder: (context) {
-                //           return AuthPage();
-                //         },
-                //       ));
-                //     },
-                //     child: Container(
-                //       margin: EdgeInsets.only(bottom: 25),
-                //       padding:
-                //           EdgeInsets.symmetric(horizontal: 26, vertical: 16),
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(25),
-                //         color: Colors.purple,
-                //       ),
-                //       child: Row(
-                //         children: <Widget>[
-                //           Text(
-                //             "START LEARNING",
-                //           ),
-                //           SizedBox(width: 10),
-                //           Icon(
-                //             Icons.arrow_forward,
-                //             color: Colors.black,
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-        ],
+          Container(
+            
+          ), 
+        ]
       ),
     );
   }
