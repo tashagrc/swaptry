@@ -16,7 +16,7 @@
     <item>
         <bitmap
             android:gravity="clip_horizontal"
-            android:width="100dp"
+            android:width="60dp"
             android:src="@drawable/splashlogo" />
     </item>
 </layer-list>
