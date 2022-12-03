@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<String> items =[
-    'assets/img/ads-2.jpg',
-    'assets/img/ads-1.jpg',
+    'assets/img/adsImg/ads-2.jpg',
+    'assets/img/adsImg/ads-1.jpg',
   ];
   
   @override
