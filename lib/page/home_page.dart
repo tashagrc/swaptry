@@ -97,12 +97,14 @@ class _HomePageState extends State<HomePage> {
           children: [
             Image.asset('assets/img/home_rectangle.png', fit: BoxFit.fill, width: MediaQuery.of(context).size.width),
             Container(
+              
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               margin: const EdgeInsets.only(top: 83),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
+                    
                     height: MediaQuery.of(context).size.height * 0.42,
                     decoration: BoxDecoration(
                       color: white,
