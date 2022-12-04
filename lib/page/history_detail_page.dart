@@ -79,7 +79,7 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
               ),
               const SizedBox(height: 16),
               Text(
-                'Item',
+                'Total Price',
                 style: textStyle(16, medium, black),
               ),
               Text(
