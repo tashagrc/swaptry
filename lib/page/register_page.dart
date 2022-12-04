@@ -111,14 +111,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       autocorrect: false,
                       validator: (value) {
                         if(value!.isEmpty){
+                          setState(() {shadowColorEmail = Colors.red;});
                           return 'Please enter a valid email address.';
                         }
 
                         String pattern = r'\w+@\w+\.\w+';
                         RegExp regex = RegExp(pattern);
                         if(!regex.hasMatch(value)){
+                          setState(() {shadowColorEmail = Colors.red;});
                           return 'Invalid E-mail Address format.';
                         } 
+                        setState(() {shadowColorEmail = darkGrey;});
                         return null;
                       },
                       keyboardType: TextInputType.emailAddress,
@@ -157,9 +160,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       validator: (value) {
                         confirmPass = value;
                         if(value!.isEmpty|| value.length < 7){
+                          setState(() {shadowColorPass = Colors.red;});
                           return 'Password must be at least 7 characters long.';
                         }
-                        
+                        setState(() {shadowColorPass = darkGrey;});
                         return null;
                       },
                       obscureText: true,
@@ -196,9 +200,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       autocorrect: false,
                       validator: (value) {
                         if(value != confirmPass){
+                          setState(() {shadowColorPass = Colors.red;});
                           return 'Password doesn\'t match!';
                         }
-                        
+                        setState(() {shadowColorPass = darkGrey;});
                         return null;
                       },
                       obscureText: true,
