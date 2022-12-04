@@ -199,6 +199,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: TextFormField(
                       autocorrect: false,
                       validator: (value) {
+                        if(value!.isEmpty){
+                          setState(() {shadowColorPass = Colors.red;});
+                          return 'Please input this field!';
+                        }
                         if(value != confirmPass){
                           setState(() {shadowColorPass = Colors.red;});
                           return 'Password doesn\'t match!';
