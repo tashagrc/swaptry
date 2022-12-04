@@ -38,71 +38,73 @@ class SearchPage1State extends State<SearchPage1> {
 
         backgroundColor: purple,
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            decoration: BoxDecoration(
-              color: purple,
-            ),
-            child: SizedBox(
-              height: 40,
-              child: TextField(
-                  style: const TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        style: BorderStyle.none
-                      ),
-                    ),
-                    hintText: 'Search Station',
-                    contentPadding: const EdgeInsets.all(0),
-                    // icon
-                    prefixIcon: const Icon(Icons.search),
-                  ),
-                  // masukin input user ke var global
-                  onChanged: (val) {
-                    setState(() {
-                      station = val;
-                    });
-                  }),
-            ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+              decoration: BoxDecoration(
+                color: purple,
               ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: StreamBuilder<QuerySnapshot>(
-              stream: stationName.snapshots(),
-              builder: (_, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: (snapshot.data!).docs.map((e) => StationCard(
-                      Station(
-                        image: e['image'],
-                        name: e['stationName'],
-                        address: e['address'],
-                        price: e['price1'],
-                        distance: double.parse((getDistance(
-                                _currenLocation.latitude,
-                                _currenLocation.longitude,
-                                e['location'].latitude,
-                                e['location'].longitude))
-                            .toStringAsFixed(2)),
-                        latitude: e['latitude'],
-                        longitude: e['longitude'],
-                        currLoc: _currenLocation,
+              child: SizedBox(
+                height: 40,
+                child: TextField(
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          width: 0,
+                          style: BorderStyle.none
+                        ),
                       ),
-                    ),).where((e) => e.station.name.toLowerCase().contains(station.toLowerCase()) || e.station.address.toLowerCase().contains(station.toLowerCase())).toList(),
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              }, // builder
+                      hintText: 'Search Station',
+                      contentPadding: const EdgeInsets.all(0),
+                      // icon
+                      prefixIcon: const Icon(Icons.search),
+                    ),
+                    // masukin input user ke var global
+                    onChanged: (val) {
+                      setState(() {
+                        station = val;
+                      });
+                    }),
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: stationName.snapshots(),
+                builder: (_, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: (snapshot.data!).docs.map((e) => StationCard(
+                        Station(
+                          image: e['image'],
+                          name: e['stationName'],
+                          address: e['address'],
+                          price: e['price1'],
+                          distance: double.parse((getDistance(
+                                  _currenLocation.latitude,
+                                  _currenLocation.longitude,
+                                  e['location'].latitude,
+                                  e['location'].longitude))
+                              .toStringAsFixed(2)),
+                          latitude: e['latitude'],
+                          longitude: e['longitude'],
+                          currLoc: _currenLocation,
+                        ),
+                      ),).where((e) => e.station.name.toLowerCase().contains(station.toLowerCase()) || e.station.address.toLowerCase().contains(station.toLowerCase())).toList(),
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                }, // builder
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
