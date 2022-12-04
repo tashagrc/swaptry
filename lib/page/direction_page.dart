@@ -177,8 +177,6 @@ class _DirectionPageState extends State<DirectionPage> {
           LatLng(point.latitude, point.longitude),
         );
       }
-    }else{
-      print(result.errorMessage);
     }
 
     double totDistance = 0;
@@ -217,6 +215,7 @@ class _DirectionPageState extends State<DirectionPage> {
         ),
       )));
     await Future.delayed(const Duration(milliseconds: 2000));
+    // ignore: use_build_context_synchronously
     Navigator.of(context)
     ..pop()
     ..pop();

@@ -209,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text.trim(), 
           password: passwordController.text.trim(),
         );
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
       

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:swaptry/models/ads.dart';
 import 'package:swaptry/models/station.dart';
 import 'package:swaptry/page/search_page1.dart';
 import 'package:swaptry/page/widgets/ads_card.dart';
@@ -49,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   List<String> items =[
     'assets/img/adsImg/ads-2.jpg',
     'assets/img/adsImg/ads-1.jpg',
+    'assets/img/adsImg/ads-3.jpg',
   ];
   
   @override
@@ -139,9 +139,10 @@ class _HomePageState extends State<HomePage> {
                           child: Stack(
                             children: 
                             [
-                              const Center(
+                              Center(
                                 child: Text(
                                   'Map not loaded\n please check your internet connection',
+                                  style: textStyle(12, regular, greyText),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -216,12 +217,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  Container(
+                  SizedBox(
                     height: 180,
                     width: 450,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 2,
+                      itemCount: 3,
                       separatorBuilder: (context, _) => const SizedBox(width: 5,),
                       itemBuilder: (context, index) => adsCard(items[index]),
                     ),
@@ -271,8 +272,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   fetchLocation() async {
-    
-
     currentLocation = await location.getLocation();
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {

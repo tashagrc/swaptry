@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swaptry/page/widgets/appTheme.dart';
 
 Widget adsCard(String adsImage) =>
   Container(

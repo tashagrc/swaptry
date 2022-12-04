@@ -26,6 +26,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   Location location = Location();
+
+  @override
+  void initState() {
+    getLocPermission();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context){
     

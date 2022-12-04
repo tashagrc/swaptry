@@ -59,7 +59,24 @@ class _HistoryPageState extends State<HistoryPage> {
                 stream: transaction.orderBy('orderDate', descending: true).snapshots(),
                 builder: (_, snapshot) {
                   if (snapshot.hasData) {
-                    return Column(
+                    if((snapshot.data!).docs.where((e) => e['uid'] == uid).isEmpty){
+                      return Center(
+                        child: Column(
+                          children: [
+                            SizedBox(height: MediaQuery.of(context).size.height*0.25,),
+                            Icon(Icons.history_edu_rounded, color: greyText,),
+                            const SizedBox(height: 20,),
+                            Text(
+                              'No history to be shown :(\nLet\' swap a batteries!',
+                              style: textStyle(15, medium, greyText),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    else{
+                      return Column(
                       children: (snapshot.data!).docs.map((e) =>
                         HistoryCard(History(
                             name: e['stationName'],
@@ -75,6 +92,8 @@ class _HistoryPageState extends State<HistoryPage> {
                         ),
                       ).where((e) => e.history.uid == uid).toList(),
                     );
+                    }
+                    
                   } else {
                     return const Center(child: CircularProgressIndicator());
                   }
